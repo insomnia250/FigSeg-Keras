@@ -7,12 +7,13 @@ import torch
 import torch.utils.data as torchdata
 import torch.optim as optim
 from torch.optim import lr_scheduler
-from utils.losses import SoftmaxCrossEntropy
+
 from utils.logs import trainlog
 from utils.preprocessing import *
 from FSdata.FSaug import *
 import logging
 from keras import losses
+from keras.applications.inception_v3 import InceptionV3
 
 class FSAug(object):
     def __init__(self):
