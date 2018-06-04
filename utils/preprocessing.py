@@ -44,7 +44,7 @@ def gen_dataloader(img_root,validation_split=0.1,train_bs =8,val_bs=4):
     data_set['val'] = LMdata(val_pd, trainAug())
     data_loader = {}
     data_loader['train'] = torchdata.DataLoader(data_set['train'], train_bs, num_workers=8,
-                                                shuffle=True, pin_memory=False, collate_fn=collate_fn)
+                                                shuffle=True, pin_memory=False)
     data_loader['val'] = torchdata.DataLoader(data_set['val'], val_bs, num_workers=4,
-                                              shuffle=False, pin_memory=False, collate_fn=collate_fn)
+                                              shuffle=False, pin_memory=False)
     return data_set,data_loader

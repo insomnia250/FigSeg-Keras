@@ -15,13 +15,9 @@ from logs import *
 def train(model,
           epoch_num,
           start_epoch,
-          optimizer,
-          criterion,
-          exp_lr_scheduler,
           data_set,
           data_loader,
           save_dir,
-          augloss=False,
           print_inter=200,
           val_inter=3500
           ):
@@ -35,14 +31,15 @@ def train(model,
         for batch_cnt, data in enumerate(data_loader['train']):
             model.train(True)
             # print data
-            inputs, attr, attr_mask, labels, labels_str = data
+            inputs, mask = data
 
-            loss,outputs = model.train_on_batch(inputs, labels)
+            out_metrics = model.train_on_batch(inputs, [None, mask])
+            total_loss, proba_loss, proba_dice, proba_recall, proba_prec, proba_bce =  out_metrics
 
             # batch loss
             if step % print_inter == 0:
-                logging.info('%s [%d-%d] | batch-loss: %.3f'
-                             % (dt(), epoch, batch_cnt, loss.data[0]))
+                logging.info('%s [%d-%d]| loss: %.3f, dice: %.3f, recall: %.2f, prec: %.3f, '
+                             % (dt(), epoch, batch_cnt, total_loss))
 
 
             if step % val_inter == 0:

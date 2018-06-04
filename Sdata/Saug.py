@@ -90,11 +90,11 @@ class Normalize(object):
         :param std:  RGB order
         mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]
         '''
-        self.mean = np.array(mean).reshape(3,1,1)
-        self.std = np.array(std).reshape(3,1,1)
+        self.mean = np.array(mean).reshape(1,1,3)
+        self.std = np.array(std).reshape(1,1,3)
     def __call__(self, img, lm):
         '''
         :param image:  (H,W,3)  RGB
         :return:
         '''
-        return (img.transpose((2, 0, 1))/ 255. - self.mean) / self.std, lm
+        return (img/ 255. - self.mean) / self.std, lm

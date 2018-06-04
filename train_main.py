@@ -10,18 +10,18 @@ from learning_rate import create_lr_schedule
 from loss import dice_coef_loss, dice_coef, recall, precision
 from nets.MobileUNet import MobileUNet
 
-checkpoint_path = 'artifacts/checkpoint_weights.{epoch:02d}-{val_loss:.2f}.h5'
-trained_model_path = 'artifacts/model.h5'
-
-nb_train_samples = 2341
-nb_validation_samples = 586
+# checkpoint_path = 'artifacts/checkpoint_weights.{epoch:02d}-{val_loss:.2f}.h5'
+# trained_model_path = 'artifacts/model.h5'
+#
+# nb_train_samples = 2341
+# nb_validation_samples = 586
 
 
 def train(img_file, mask_file, epochs, batch_size):
-    train_gen, validation_gen, img_shape = load_data(img_file, mask_file)
+    # train_gen, validation_gen, img_shape = load_data(img_file, mask_file)
 
-    img_height = img_shape[0]
-    img_width = img_shape[1]
+    img_height = 385
+    img_width = 385
     lr_base = 0.01 * (float(batch_size) / 16)
 
     model = MobileUNet(input_shape=(img_height, img_width, 3),

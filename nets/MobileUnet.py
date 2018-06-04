@@ -202,20 +202,24 @@ def MobileUNet(input_shape=None,
     # b18 = _depthwise_conv_block(up5, filters, alpha_up, depth_multiplier, block_id=18)
     b18 = _conv_block(up5, filters, alpha_up, block_id=18)
 
-    x = Conv2D(1, (1, 1), kernel_initializer='he_normal', activation='linear')(b18)
-    x = BilinearUpSampling2D(size=(2, 2))(x)
-    x = Activation('sigmoid')(x)
+    logits = Conv2D(1, (1, 1), kernel_initializer='he_normal', activation='linear')(b18)
+    logits = BilinearUpSampling2D(size=(2, 2),name='logits')(logits)
+    proba = Activation('sigmoid', name='proba')(logits)
 
-    model = Model(img_input, x)
+    model = Model(img_input, [logits, proba])
 
     return model
 
-import numpy as np
 
-x = np.empty((10,224,224,3),dtype=np.float32)
-model = MobileUNet(input_shape=(224, 224, 3),
-                       alpha=1,
-                       alpha_up=1,
-                       depth_multiplier=1)
-y = model.predict(x)
-print y
+if __name__=='__main__':
+    import numpy as np
+
+    x = np.empty((10,224,224,3),dtype=np.float32)
+    model = MobileUNet(input_shape=(224, 224, 3),
+                           alpha=1,
+                           alpha_up=1,
+                           depth_multiplier=1)
+    logits, y = model.predict(x)
+    print logits
+    print '=='*20
+    print y
