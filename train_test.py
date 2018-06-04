@@ -17,9 +17,10 @@ from utils.train import train
 img_root = '/media/gserver/data/seg_data'
 img_shape = (224,224)
 #
-data_set, data_loader = gen_dataloader(img_root=img_root, train_bs=8, val_bs=4)
+data_set, data_loader = gen_dataloader(img_root=img_root, size=(224,224),train_bs=8, val_bs=4)
 
-print type(data_loader['train'])
+print len(data_set['train'])
+print len(data_set['val'])
 img_height = img_shape[0]
 img_width = img_shape[1]
 lr_base = 0.01 * (float(8) / 16)
@@ -51,10 +52,11 @@ model.compile(
     ]},
 )
 model.summary()
-mask = np.random.randint(0,2,size=(10,224,224,1))
-out = model.train_on_batch(x,  mask)
-print out
-print model.metrics_names
+
+# mask = np.random.randint(0,2,size=(10,224,224,1))
+# out = model.train_on_batch(x,  mask)
+# print out
+# print model.metrics_names
 #
 #
 #
@@ -67,12 +69,12 @@ print model.metrics_names
 # #                                        save_weights_only=True,
 # #                                        save_best_only=True)
 # #
-# train(model,
-#       epoch_num=20,
-#       start_epoch=0,
-#       data_set=data_set,
-#       data_loader=data_loader,
-#       save_dir='./temp_modles/fuckyou',
-#       print_inter=200,
-#       val_inter=3500
-#       )
+train(model,
+      epoch_num=20,
+      start_epoch=0,
+      data_set=data_set,
+      data_loader=data_loader,
+      save_dir='./temp_modles/fuckyou',
+      print_inter=200,
+      val_inter=3500
+      )
