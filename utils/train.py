@@ -27,19 +27,20 @@ def train(model,
                 if mIOU > best_mIOU:
                     best_mIOU = mIOU
                     best_weights = model.get_weights()
-
+                print mIOU
                 # save model
 
-                save_path = os.path.join(save_dir, 'model-%d-[%.4f].h5' % (step, mIOU))
-                model.save(save_path)
-                logging.info('saved model to %s' % (save_path))
-                logging.info('--' * 30)
+                # save_path = os.path.join(save_dir, 'model-%d-[%.4f].h5' % (step, mIOU))
+                # model.save(save_path)
+                # logging.info('saved model to %s' % (save_path))
+                # logging.info('--' * 30)
 
             # training
             inputs, masks = data
 
             outputs = model.train_on_batch(inputs, masks)
             loss, recall, prec, proba = outputs
+
 
             bs_mIOU = cal_IOU(proba.round()[:,:,:,0], masks[:,:,:,0], 2)
 

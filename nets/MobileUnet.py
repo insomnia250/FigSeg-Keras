@@ -216,8 +216,8 @@ def custom_objects():
         'relu6': mobilenet.relu6,
         'DepthwiseConv2D': mobilenet.DepthwiseConv2D,
         'BilinearUpSampling2D': BilinearUpSampling2D,
-        'dice_coef_loss': loss.dice_coef_loss,
-        'dice_coef': loss.dice_coef,
+        # 'dice_coef_loss': loss.dice_coef_loss,
+        # 'dice_coef': loss.dice_coef,
         'recall': loss.recall,
         'precision': loss.precision,
     }

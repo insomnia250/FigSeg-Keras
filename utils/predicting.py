@@ -18,6 +18,7 @@ def predict(
         proba = model.predict_on_batch(imgs)
         # statistics
         iou = cal_IOU(proba.round()[:,:,:,0], masks[:,:,:,0], 2)
+        print iou
         ious[idx: idx + imgs.shape[0]] = iou
         idx += imgs.shape[0]
 
