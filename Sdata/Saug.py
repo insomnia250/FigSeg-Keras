@@ -5,7 +5,6 @@ from numpy import random
 import math
 from sklearn.utils import shuffle
 import matplotlib.pyplot as plt
-cv2.setNumThreads(0)
 __all__ = ['Compose','ResizeImg',"Normalize","RandomResizedCrop","RandomHflip"]
 
 class Compose(object):

@@ -6,7 +6,6 @@ import torch.utils.data as data
 import numpy as np
 import pandas as pd
 import cv2
-cv2.setNumThreads(0)
 
 class LMdata(data.Dataset):
     def __init__(self, anno_pd, transforms):
@@ -27,6 +26,18 @@ class LMdata(data.Dataset):
             img, mask = self.transforms(img, mask)
         return img, mask[:,:,np.newaxis]
 
+def collate_fn(batch):
+    imgs = []
+    masks = []
+
+    for sample in batch:
+        imgs.append(sample[0])
+        masks.append(sample[1])
+
+    return np.stack(imgs, 0), \
+           np.stack(masks, 0)
+
+
 if __name__ == '__main__':
     from utils.preprocessing import gen_dataloader
     img_root = '/media/gserver/data/seg_data/'
@@ -34,7 +45,7 @@ if __name__ == '__main__':
     data_set, data_loader = gen_dataloader(img_root, validation_split=0.1, train_bs=8, val_bs=4)
     print len(data_set['train']), len(data_set['val'])
 
-    img, mask = data_set['train'][0]
+    img, mask = data_set['val'][0]
     img = img.astype(np.uint8)
     print img.shape
     print img

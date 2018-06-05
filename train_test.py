@@ -1,11 +1,7 @@
-import os
-import time,random
-import pandas as pd
-from sklearn.model_selection import train_test_split
+import keras
 from keras import callbacks, optimizers
-from utils.logs import trainlog
+from keras.utils.generic_utils import CustomObjectScope
 from utils.preprocessing import *
-from FSdata.FSaug import *
 import logging
 from keras import losses
 from nets.MobileUnet import MobileUNet
@@ -13,9 +9,16 @@ from loss import dice_coef_loss, dice_coef, recall, precision
 from learning_rate import create_lr_schedule
 from utils.logs import *
 from utils.train import train
+from nets.MobileUnet import custom_objects
 
 img_root = '/media/gserver/data/seg_data'
 img_shape = (224,224)
+save_dir = './saved_models/test/'
+
+resume = './saved_models/test/model-80000-[0.8121].pth'
+
+if not os.path.exists(save_dir):
+    os.makedirs(save_dir)
 #
 data_set, data_loader = gen_dataloader(img_root=img_root, size=(224,224),train_bs=8, val_bs=4)
 
@@ -32,33 +35,41 @@ model = MobileUNet(input_shape=(img_height, img_width, 3),
                    alpha=1,
                    alpha_up=0.25)
 
-logits, y = model.predict(x)
-print logits.min(), logits.max()
-print '=='*20
-print y.shape
-
-
+logfile = '%s/trainlog.log'%save_dir
+trainlog(logfile)
 #
 model.compile(
     optimizer=optimizers.SGD(lr=0.0001, momentum=0.9),
     # optimizer=Adam(lr=0.001),
     # optimizer=optimizers.RMSprop(),
-    loss={'logits':None, 'proba':dice_coef_loss},
+    loss={'proba':losses.binary_crossentropy},
     metrics={'proba':[
-        dice_coef,
         recall,
         precision,
-        'binary_crossentropy',
     ]},
 )
+
+out_layers = ['proba']
+model.metrics_tensors += [layer.output for layer in model.layers if layer.name in out_layers]
+
+if resume:
+    with CustomObjectScope(custom_objects()):
+        model = keras.models.load_model(resume)
+    logging.info('resumed model from %s'%resume)
+
+
 model.summary()
 
 # mask = np.random.randint(0,2,size=(10,224,224,1))
 # out = model.train_on_batch(x,  mask)
-# print out
+# print len(out)
 # print model.metrics_names
 #
-#
+# output = model.predict_on_batch(x)
+# print output.shape
+# print len(output)
+
+
 #
 # # # callbacks
 # # scheduler = callbacks.LearningRateScheduler(
@@ -70,11 +81,11 @@ model.summary()
 # #                                        save_best_only=True)
 # #
 train(model,
-      epoch_num=20,
-      start_epoch=0,
+      epoch_num=2000,
+      start_epoch=10,
       data_set=data_set,
       data_loader=data_loader,
-      save_dir='./temp_modles/fuckyou',
+      save_dir='%s'%save_dir,
       print_inter=200,
-      val_inter=3500
+      val_inter=4000
       )

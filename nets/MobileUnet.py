@@ -206,9 +206,23 @@ def MobileUNet(input_shape=None,
     logits = BilinearUpSampling2D(size=(2, 2),name='logits')(logits)
     proba = Activation('sigmoid', name='proba')(logits)
 
-    model = Model(img_input, [logits, proba])
+    model = Model(img_input, proba)
 
     return model
+
+
+def custom_objects():
+    return {
+        'relu6': mobilenet.relu6,
+        'DepthwiseConv2D': mobilenet.DepthwiseConv2D,
+        'BilinearUpSampling2D': BilinearUpSampling2D,
+        'dice_coef_loss': loss.dice_coef_loss,
+        'dice_coef': loss.dice_coef,
+        'recall': loss.recall,
+        'precision': loss.precision,
+    }
+
+
 
 
 if __name__=='__main__':
