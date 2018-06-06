@@ -110,3 +110,4 @@ result/
 
 *.pth
 *.h5
+*.pyc

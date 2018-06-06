@@ -24,7 +24,7 @@ class LMdata(data.Dataset):
 
         if self.transforms:
             img, mask = self.transforms(img, mask)
-        return img, mask[:,:,np.newaxis]
+        return img.astype(np.float32), mask[:,:,np.newaxis].astype(np.float32)
 
 def collate_fn(batch):
     imgs = []

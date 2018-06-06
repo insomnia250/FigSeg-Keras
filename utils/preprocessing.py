@@ -25,7 +25,7 @@ class valAug(object):
     def __init__(self,size=(224,224)):
         self.augment = Compose([
             ResizeImg(size=size),
-            Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+            # Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
         ])
 
     def __call__(self, *args):
@@ -34,16 +34,16 @@ class valAug(object):
 
 def gen_dataloader(img_root,size=(224,224), validation_split=0.1,train_bs =8,val_bs=4):
     annotation = pd.DataFrame(columns=["image_id","image_mask"])
-    imglist = glob.glob(os.path.join(img_root, "seg_img","*.jpg"))
+    imglist = sorted(list(glob.glob(os.path.join(img_root, "seg_img","*.jpg"))))
 
-    annotation['image_id']=pd.Series(imglist)
+    annotation['image_id']=imglist
     annotation["image_mask"]=annotation['image_id'].apply(lambda x :os.path.join(img_root, "seg_mask",x.split("/")[-1].split(".")[0]+".png"))
     train_pd, val_pd = train_test_split(annotation, test_size=validation_split, random_state=42)
     train_pd.index = range(train_pd.shape[0])
     val_pd.index = range(val_pd.shape[0])
     data_set = {}
     data_set['train'] = LMdata(train_pd, trainAug(size=size))
-    data_set['val'] = LMdata(val_pd, trainAug(size=size))
+    data_set['val'] = LMdata(val_pd, valAug(size=size))
     data_loader = {}
     data_loader['train'] = torchdata.DataLoader(data_set['train'], train_bs, num_workers=8,
                                                 shuffle=True, pin_memory=True,collate_fn=collate_fn)

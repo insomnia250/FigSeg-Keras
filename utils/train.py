@@ -3,10 +3,11 @@ import os
 from utils.predicting import predict
 from metrics import cal_IOU
 from logs import *
-
+from keras import backend as K
 def train(model,
           epoch_num,
           start_epoch,
+          lr_scheduler,
           data_set,
           data_loader,
           save_dir,
@@ -22,18 +23,19 @@ def train(model,
         for batch_cnt, data in enumerate(data_loader['train']):
             if step % val_inter == 0:
                 logging.info('--' * 30)
+                K.set_value(model.optimizer.lr, lr_scheduler(epoch))
+                logging.info('current lr:%s'%K.eval(model.optimizer.lr))
                 mIOU = predict(model, data_set['val'], data_loader['val'])
 
                 if mIOU > best_mIOU:
                     best_mIOU = mIOU
                     best_weights = model.get_weights()
-                print mIOU
                 # save model
 
-                # save_path = os.path.join(save_dir, 'model-%d-[%.4f].h5' % (step, mIOU))
-                # model.save(save_path)
-                # logging.info('saved model to %s' % (save_path))
-                # logging.info('--' * 30)
+                save_path = os.path.join(save_dir, 'weights-%d-[%.4f].h5' % (step, mIOU))
+                model.save_weights(save_path)
+                logging.info('saved model to %s' % (save_path))
+                logging.info('--' * 30)
 
             # training
             inputs, masks = data

@@ -21,16 +21,17 @@ from utils.logs import *
 from utils.train import train
 from nets.MobileUnet import custom_objects
 
-img_root = '/media/gserver/data/seg_data'
+img_root = '/media/hszc/data1/seg_data'
 img_shape = (224,224)
 save_dir = './saved_models/test/'
+bs = 24
 
 resume = '/home/gserver/zhangchi/FigSeg-Keras/saved_models/test/model-80000-[0.8121].pth'
-# resume=''
+resume = '/home/hszc/zhangchi/FigSeg-Keras/saved_models/test/weights-500-[0.2007].h5'
 if not os.path.exists(save_dir):
     os.makedirs(save_dir)
 #
-data_set, data_loader = gen_dataloader(img_root=img_root, size=(224,224),train_bs=8, val_bs=4)
+data_set, data_loader = gen_dataloader(img_root=img_root, size=(224,224),train_bs=bs, val_bs=4)
 
 print len(data_set['train'])
 print len(data_set['val'])
@@ -45,15 +46,10 @@ logfile = '%s/trainlog.log' % save_dir
 trainlog(logfile)
 
 
-if resume:
-    with CustomObjectScope(custom_objects()):
-        model = keras.models.load_model(resume)
-    logging.info('resumed model from %s'%resume)
-else:
 
-    model = MobileUNet(input_shape=(img_height, img_width, 3),
-                       alpha=1,
-                       alpha_up=0.25)
+model = MobileUNet(input_shape=(img_height, img_width, 3),
+                   alpha=1,
+                   alpha_up=0.25)
 model.compile(
     optimizer=optimizers.SGD(lr=0.0001, momentum=0.9),
     # optimizer=Adam(lr=0.001),
@@ -67,25 +63,46 @@ model.compile(
 
 out_layers = ['proba']
 model.metrics_tensors += [layer.output for layer in model.layers if layer.name in out_layers]
-# print model.metrics_tensors
-#
-# # model.summary()
-#
-# mask = np.random.randint(0,2,size=(10,224,224,1))
-# out = model.train_on_batch(x,  mask)
-# print out
-# print model.metrics_names
-#
-# output = model.predict_on_batch(x)
-# print output.shape
-# print len(output)
+
+if resume:
+    # with CustomObjectScope(custom_objects()):
+    #     model = keras.models.load_model(resume)
+    model.load_weights(resume)
+    logging.info('resumed model from %s'%resume)
+
+
+# learning scheduler
+step1_bs_rate = 25. / 24.
+step2_bs_rate = 50. / 24.
+step3_bs_rate = 75. / 24.
+steps_bs_rate = 100. / 24.
+step1 = int(bs * step1_bs_rate)
+step2 = int(bs * step2_bs_rate)
+step3 = int(bs * step3_bs_rate)
+steps = int(bs * steps_bs_rate)
+logging.info('lr steps1: %d' % step1)
+logging.info('lr steps2: %d' % step2)
+logging.info('lr steps3: %d' % step3)
+logging.info('total steps: %d' % steps)
+
+
+def lr_scheduler(epoch,base_lr=1e-4):
+    if epoch < step1:
+        return 1*base_lr
+    elif epoch < step2:
+        return 0.1*base_lr
+    elif epoch < step3:
+        return 0.05*base_lr
+    else:
+        return 0.01*base_lr
 
 train(model,
-      epoch_num=2000,
-      start_epoch=10,
+      epoch_num=100,
+      start_epoch=0,
+      lr_scheduler=lr_scheduler,
       data_set=data_set,
       data_loader=data_loader,
       save_dir='%s'%save_dir,
       print_inter=200,
-      val_inter=4000
+      val_inter=3500
       )
