@@ -7,8 +7,8 @@ from keras.layers import BatchNormalization, Activation, Conv2D, concatenate, Co
 
 import loss
 from layers.BilinearUpSampling import BilinearUpSampling2D
-
-
+from keras import regularizers as regu
+weight_decay = 1e-5
 def _conv_block(inputs, filters, alpha, kernel=(3, 3), strides=(1, 1), block_id=1):
     """Adds an initial convolution layer (with batch normalization and relu6).
 
@@ -61,8 +61,11 @@ def _conv_block(inputs, filters, alpha, kernel=(3, 3), strides=(1, 1), block_id=
                padding='same',
                use_bias=False,
                strides=strides,
-               name='conv_%d' % block_id)(inputs)
-    x = BatchNormalization(axis=channel_axis, name='conv_%d_bn' % block_id)(x)
+               name='conv_%d' % block_id,
+               kernel_regularizer=regu.l2(weight_decay),
+               bias_regularizer=regu.l2(weight_decay))(inputs)
+    x = BatchNormalization(axis=channel_axis, name='conv_%d_bn' % block_id,
+                           beta_regularizer=regu.l2(weight_decay), gamma_regularizer=regu.l2(weight_decay))(x)
     return Activation(relu6, name='conv_%d_relu' % block_id)(x)
 
 
@@ -123,16 +126,26 @@ def _depthwise_conv_block(inputs, pointwise_conv_filters, alpha,
                         depth_multiplier=depth_multiplier,
                         strides=strides,
                         use_bias=False,
-                        name='conv_dw_%d' % block_id)(inputs)
-    x = BatchNormalization(axis=channel_axis, name='conv_dw_%d_bn' % block_id)(x)
+                        name='conv_dw_%d' % block_id,
+                        kernel_regularizer=regu.l2(weight_decay),
+                        bias_regularizer=regu.l2(weight_decay))(inputs)
+    x = BatchNormalization(axis=channel_axis,
+                           gamma_regularizer=regu.l2(weight_decay),
+                           beta_regularizer=regu.l2(weight_decay),
+                           name='conv_dw_%d_bn' % block_id)(x)
     x = Activation(relu6, name='conv_dw_%d_relu' % block_id)(x)
 
     x = Conv2D(pointwise_conv_filters, (1, 1),
                padding='same',
                use_bias=False,
                strides=(1, 1),
+               kernel_regularizer=regu.l2(weight_decay),
+               bias_regularizer=regu.l2(weight_decay),
                name='conv_pw_%d' % block_id)(x)
-    x = BatchNormalization(axis=channel_axis, name='conv_pw_%d_bn' % block_id)(x)
+    x = BatchNormalization(axis=channel_axis,
+                           beta_regularizer=regu.l2(weight_decay),
+                           gamma_regularizer=regu.l2(weight_decay),
+                           name='conv_pw_%d_bn' % block_id)(x)
     return Activation(relu6, name='conv_pw_%d_relu' % block_id)(x)
 
 def MobileUNet(input_shape=None,
@@ -140,7 +153,8 @@ def MobileUNet(input_shape=None,
                alpha_up=1.0,
                depth_multiplier=1,
                dropout=1e-3,
-               input_tensor=None):
+               input_tensor=None,
+               weight_decay=1e-5):
     if input_tensor is None:
         img_input = Input(shape=input_shape)
     else:
@@ -171,28 +185,36 @@ def MobileUNet(input_shape=None,
 
     filters = int(512 * alpha)
     up1 = concatenate([
-        Conv2DTranspose(filters, (2, 2), strides=(2, 2), padding='same')(b13),
+        Conv2DTranspose(filters, (2, 2), strides=(2, 2), padding='same',
+                        kernel_regularizer=regu.l2(weight_decay),
+                        bias_regularizer=regu.l2(weight_decay))(b13),
         b11,
     ], axis=3)
     b14 = _depthwise_conv_block(up1, filters, alpha_up, depth_multiplier, block_id=14)
 
     filters = int(256 * alpha)
     up2 = concatenate([
-        Conv2DTranspose(filters, (2, 2), strides=(2, 2), padding='same')(b14),
+        Conv2DTranspose(filters, (2, 2), strides=(2, 2), padding='same',
+                        kernel_regularizer=regu.l2(weight_decay),
+                        bias_regularizer=regu.l2(weight_decay))(b14),
         b05,
     ], axis=3)
     b15 = _depthwise_conv_block(up2, filters, alpha_up, depth_multiplier, block_id=15)
 
     filters = int(128 * alpha)
     up3 = concatenate([
-        Conv2DTranspose(filters, (2, 2), strides=(2, 2), padding='same')(b15),
+        Conv2DTranspose(filters, (2, 2), strides=(2, 2), padding='same',
+                        kernel_regularizer=regu.l2(weight_decay),
+                        bias_regularizer=regu.l2(weight_decay))(b15),
         b03,
     ], axis=3)
     b16 = _depthwise_conv_block(up3, filters, alpha_up, depth_multiplier, block_id=16)
 
     filters = int(64 * alpha)
     up4 = concatenate([
-        Conv2DTranspose(filters, (2, 2), strides=(2, 2), padding='same')(b16),
+        Conv2DTranspose(filters, (2, 2), strides=(2, 2), padding='same',
+                        kernel_regularizer=regu.l2(weight_decay),
+                        bias_regularizer=regu.l2(weight_decay))(b16),
         b01,
     ], axis=3)
     b17 = _depthwise_conv_block(up4, filters, alpha_up, depth_multiplier, block_id=17)
@@ -202,7 +224,9 @@ def MobileUNet(input_shape=None,
     # b18 = _depthwise_conv_block(up5, filters, alpha_up, depth_multiplier, block_id=18)
     b18 = _conv_block(up5, filters, alpha_up, block_id=18)
 
-    logits = Conv2D(1, (1, 1), kernel_initializer='he_normal', activation='linear')(b18)
+    logits = Conv2D(1, (1, 1), kernel_initializer='he_normal', activation='linear',
+                    kernel_regularizer=regu.l2(weight_decay),
+                    bias_regularizer=regu.l2(weight_decay))(b18)
     logits = BilinearUpSampling2D(size=(2, 2),name='logits')(logits)
     proba = Activation('sigmoid', name='proba')(logits)
 
@@ -227,13 +251,15 @@ def custom_objects():
 
 if __name__=='__main__':
     import numpy as np
-
+    import keras
     x = np.empty((10,224,224,3),dtype=np.float32)
     model = MobileUNet(input_shape=(224, 224, 3),
                            alpha=1,
                            alpha_up=1,
                            depth_multiplier=1)
-    logits, y = model.predict(x)
-    print logits
-    print '=='*20
-    print y
+    model.summary()
+
+    # logits, y = model.predict(x)
+    # print logits
+    # print '=='*20
+    # print y

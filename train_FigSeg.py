@@ -2,7 +2,7 @@ import os
 import tensorflow as tf
 from keras.backend.tensorflow_backend import set_session
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 config = tf.ConfigProto()
 config.gpu_options.allow_growth=True
 set_session(tf.Session(config=config))
@@ -20,10 +20,11 @@ from learning_rate import create_lr_schedule
 from utils.logs import *
 from utils.train import train
 from nets.MobileUnet import custom_objects
+from nets.FigSeg import FigSeg
 
 img_root = '/media/hszc/data1/seg_data'
 img_shape = (224,224)
-save_dir = './saved_models/test_reg_adam/'
+save_dir = './saved_models/FigSeg_reg_adam/'
 bs = 24
 
 resume = None
@@ -46,9 +47,7 @@ trainlog(logfile)
 
 
 
-model = MobileUNet(input_shape=(img_height, img_width, 3),
-                   alpha=1,
-                   alpha_up=0.25)
+model = FigSeg(input_shape=(img_height, img_width, 3))
 model.compile(
     # optimizer=optimizers.SGD(lr=0.0001, momentum=0.9),
     optimizer=optimizers.Adam(lr=1e-4),
@@ -87,9 +86,9 @@ if resume:
 
 
 def lr_scheduler(epoch,base_lr=1e-4):
-    if epoch < 150:
+    if epoch < 80:
         return 1*base_lr
-    elif epoch < 250:
+    elif epoch < 150:
         return 0.5*base_lr
     # elif epoch < step3:
     #     return 0.05*base_lr
@@ -98,7 +97,7 @@ def lr_scheduler(epoch,base_lr=1e-4):
 
 
 train(model,
-      epoch_num=300,
+      epoch_num=200,
       start_epoch=0,
       lr_scheduler=lr_scheduler,
       data_set=data_set,
