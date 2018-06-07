@@ -97,3 +97,21 @@ class Normalize(object):
         :return:
         '''
         return (img/ 255. - self.mean) / self.std, lm
+
+
+class deNormalize(object):
+    def __init__(self,mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225)):
+        '''
+        :param mean: RGB order
+        :param std:  RGB order
+        mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]
+        '''
+        self.mean = np.array(mean).reshape(1,1,3)
+        self.std = np.array(std).reshape(1,1,3)
+    def __call__(self, img):
+        '''
+        :param image:  (H,W,3)  RGB
+        :return:
+        '''
+        # return (img/ 255. - self.mean) / self.std
+        return (255*(img*self.std + self.mean)).clip(0,255).astype(np.uint8)

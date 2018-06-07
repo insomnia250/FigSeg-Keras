@@ -7,11 +7,11 @@ import numpy as np
 import pandas as pd
 import cv2
 
-class LMdata(data.Dataset):
+class Sdata(data.Dataset):
     def __init__(self, anno_pd, transforms):
         anno_pd.index = range(anno_pd.shape[0])
-        self.img_path = anno_pd['image_id']
-        self.mask_path = anno_pd['image_mask']
+        self.img_path = anno_pd['image_paths']
+        self.mask_path = anno_pd['mask_paths']
         self.transforms = transforms
         # deal with label
 
@@ -40,19 +40,19 @@ def collate_fn(batch):
 
 if __name__ == '__main__':
     from utils.preprocessing import gen_dataloader
-    img_root = '/media/gserver/data/seg_data/'
+    img_root = '/media/gserver/data/seg_data/diy_data'
 
     data_set, data_loader = gen_dataloader(img_root, validation_split=0.1, train_bs=8, val_bs=4)
     print len(data_set['train']), len(data_set['val'])
 
-    img, mask = data_set['val'][0]
+    img, mask = data_set['val'][3]
     img = img.astype(np.uint8)
     print img.shape
-    print img
     print mask.max()
+    print mask.shape
 
     from matplotlib import pyplot as plt
     plt.imshow(img)
     plt.figure()
-    plt.imshow(mask)
+    plt.imshow(mask[:,:,0])
     plt.show()

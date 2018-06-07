@@ -1,3 +1,7 @@
+import os
+import tensorflow as tf
+from keras.backend.tensorflow_backend import set_session
+import keras
 import keras.backend as K
 from keras import Input
 from keras.applications import mobilenet
@@ -8,6 +12,12 @@ from keras.layers import BatchNormalization, Activation, Conv2D, concatenate, Co
 import loss
 from layers.BilinearUpSampling import BilinearUpSampling2D
 from keras import regularizers as regu
+
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+config = tf.ConfigProto()
+config.gpu_options.allow_growth=True
+set_session(tf.Session(config=config))
+
 weight_decay = 1e-5
 def _conv_block(inputs, filters, alpha, kernel=(3, 3), strides=(1, 1), block_id=1):
     """Adds an initial convolution layer (with batch normalization and relu6).
