@@ -2,13 +2,13 @@ import os
 import tensorflow as tf
 from keras.backend.tensorflow_backend import set_session
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"
 config = tf.ConfigProto()
 config.gpu_options.allow_growth=True
 set_session(tf.Session(config=config))
 
 import keras
-
+from keras.utils import multi_gpu_model
 from keras import callbacks, optimizers
 from keras.utils.generic_utils import CustomObjectScope
 from utils.preprocessing import *
@@ -22,15 +22,15 @@ from utils.train import train
 from nets.MobileUnet import custom_objects
 
 img_root = '/media/hszc/data1/seg_data'
-img_shape = (224,224)
-save_dir = './saved_models/test_reg_adam/'
-bs = 24
+img_shape = (448,448)
+save_dir = './saved_models/test448_reg_adam/'
+bs = 16
 
 resume = None
 if not os.path.exists(save_dir):
     os.makedirs(save_dir)
 #
-data_set, data_loader = gen_dataloader(img_root=img_root, size=(224,224),train_bs=bs, val_bs=4)
+data_set, data_loader = gen_dataloader(img_root=img_root, size=(448,448),train_bs=bs, val_bs=2)
 
 print len(data_set['train'])
 print len(data_set['val'])
@@ -39,7 +39,7 @@ img_width = img_shape[1]
 lr_base = 0.01 * (float(8) / 16)
 
 
-x = np.random.rand(10,224,224,3)
+# x = np.random.rand(10,448,448,3)
 
 logfile = '%s/trainlog.log' % save_dir
 trainlog(logfile)
@@ -49,7 +49,8 @@ trainlog(logfile)
 model = MobileUNet(input_shape=(img_height, img_width, 3),
                    alpha=1,
                    alpha_up=0.25)
-model.compile(
+parallel_model = multi_gpu_model(model,gpus=2)
+parallel_model.compile(
     # optimizer=optimizers.SGD(lr=0.0001, momentum=0.9),
     optimizer=optimizers.Adam(lr=1e-4),
     # optimizer=optimizers.RMSprop(),
@@ -62,12 +63,12 @@ model.compile(
 )
 
 out_layers = ['proba']
-model.metrics_tensors += [layer.output for layer in model.layers if layer.name in out_layers]
+parallel_model.metrics_tensors += [layer.output for layer in model.layers if layer.name in out_layers]
 
 if resume:
     # with CustomObjectScope(custom_objects()):
     #     model = keras.models.load_model(resume)
-    model.load_weights(resume)
+    parallel_model.load_weights(resume)
     logging.info('resumed model from %s'%resume)
 
 
@@ -97,7 +98,7 @@ def lr_scheduler(epoch,base_lr=1e-4):
         return 0.01*base_lr
 
 
-train(model,
+train(parallel_model,
       epoch_num=300,
       start_epoch=0,
       lr_scheduler=lr_scheduler,

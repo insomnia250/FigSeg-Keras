@@ -5,7 +5,7 @@ from numpy import random
 import math
 from sklearn.utils import shuffle
 import matplotlib.pyplot as plt
-__all__ = ['Compose','ResizeImg',"Normalize","RandomResizedCrop","RandomHflip"]
+__all__ = ['Compose','ResizeImg',"Normalize","RandomResizedCrop","RandomHflip", 'ExpandBorder']
 
 class Compose(object):
     def __init__(self, transforms):
@@ -81,6 +81,48 @@ class RandomHflip(object):
             return cv2.flip(image, 1), cv2.flip(mask, 1),
         else:
             return image, mask
+
+
+class ExpandBorder(object):
+    def __init__(self, mode='constant', value=255, size=(336,336), resize=False):
+        self.mode = mode
+        self.value = value
+        self.resize = resize
+        self.size = size
+
+    def __call__(self, image, mask):
+
+        h, w, _ = image.shape
+        if h > w:
+            pad1 = (h-w)//2
+            pad2 = h - w - pad1
+            if self.mode == 'constant':
+                image = np.pad(image, ((0, 0), (pad1, pad2), (0, 0)),
+                               self.mode, constant_values=self.value)
+                mask = np.pad(mask, ((0, 0), (pad1, pad2)),
+                               self.mode, constant_values=0)
+            else:
+                image = np.pad(image,((0,0), (pad1, pad2),(0,0)), self.mode)
+                mask = np.pad(mask, ((0, 0), (pad1, pad2)),
+                               self.mode, constant_values=0)
+        elif h < w:
+            pad1 = (w-h)//2
+            pad2 = w-h - pad1
+            if self.mode == 'constant':
+                image = np.pad(image, ((pad1, pad2),(0, 0), (0, 0)),
+                               self.mode,constant_values=self.value)
+                mask = np.pad(mask, ((pad1, pad2),(0, 0)),
+                               self.mode,constant_values=self.value)
+            else:
+                image = np.pad(image, ((pad1, pad2), (0, 0), (0, 0)),self.mode)
+                mask = np.pad(mask, ((pad1, pad2),(0, 0)),
+                               self.mode,constant_values=self.value)
+
+        if self.resize:
+            image = cv2.resize(image, (self.size[0], self.size[0]),interpolation=cv2.INTER_LINEAR)
+            mask = cv2.resize(mask, (self.size[0], self.size[0]), interpolation=cv2.INTER_LINEAR)
+
+        return image, mask
 
 class Normalize(object):
     def __init__(self,mean, std):

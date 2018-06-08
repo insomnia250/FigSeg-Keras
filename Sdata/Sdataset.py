@@ -41,12 +41,12 @@ def collate_fn(batch):
 
 if __name__ == '__main__':
     from utils.preprocessing import gen_dataloader
-    img_root = '/media/gserver/data/seg_data/diy_data'
+    img_root = '/media/hszc/data1/seg_data/'
 
     data_set, data_loader = gen_dataloader(img_root, validation_split=0.1, train_bs=8, val_bs=4)
     print len(data_set['train']), len(data_set['val'])
 
-    img, mask = data_set['val'][3]
+    img, mask = data_set['train'][13]
     img = img.astype(np.uint8)
     print img.shape
     print mask.max()

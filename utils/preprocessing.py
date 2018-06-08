@@ -14,6 +14,7 @@ class trainAug(object):
         self.augment = Compose([
             RandomResizedCrop(size=size),
             # ResizeImg(size=(224, 224)),
+            # ExpandBorder(mode='constant', value=255, size=size, resize=False),
             RandomHflip(),
             Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
         ])
@@ -24,6 +25,7 @@ class trainAug(object):
 class valAug(object):
     def __init__(self,size=(224,224)):
         self.augment = Compose([
+            # ExpandBorder(mode='constant', value=255, size=size, resize=False),
             ResizeImg(size=size),
             Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
         ])

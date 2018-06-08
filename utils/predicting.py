@@ -7,9 +7,6 @@ from utils.plotting import AddHeatmap
 from matplotlib import pyplot as plt
 
 import cv2
-img = cv2.imread('/media/gserver/data/seg_data/seg_mask/baidu_29639.png')
-plt.imshow(img[:,:,0])
-plt.show()
 
 def predict(
         model,
