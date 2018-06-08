@@ -6,6 +6,10 @@ from Sdata.Saug import deNormalize
 from utils.plotting import AddHeatmap
 from matplotlib import pyplot as plt
 
+import cv2
+img = cv2.imread('/media/gserver/data/seg_data/seg_mask/baidu_29639.png')
+plt.imshow(img[:,:,0])
+plt.show()
 
 def predict(
         model,
@@ -49,45 +53,41 @@ def predict_vis(
         proba = model.predict_on_batch(imgs)
         # statistics
         iou = cal_IOU(proba.round()[:,:,:,0], masks[:,:,:,0], 2)
+        # print proba.round()[:,:,:,0]
+        # print masks[:,:,:,0]
         ious[idx: idx + imgs.shape[0]] = iou
         idx += imgs.shape[0]
 
-        # visualize
-
-        pred_hm = proba[0, :, :, 0]
-        true_hm = masks[0, :, :, 0]
-
-
-        ori_img = deNormalizer(imgs[0])
-        print pred_hm.shape, true_hm.shape, ori_img.shape
-        plt.figure()
-        plt.subplot(221)
-        plt.imshow(ori_img)
-        plt.subplot(222)
-        plt.imshow(true_hm)
-        plt.subplot(224)
-        plt.imshow(pred_hm)
-        plt.show()
+        # # visualize
+        for i in xrange(imgs.shape[0]):
+            pred_hm = proba[i, :, :, 0]
+            true_hm = masks[i, :, :, 0]
 
 
-        pred_hm = AddHeatmap(ori_img, pred_hm)
-        true_hm = AddHeatmap(ori_img, true_hm)
-
-        plt.figure()
-        plt.subplot(221)
-        plt.imshow(ori_img)
-        plt.subplot(222)
-        plt.imshow(true_hm)
-        plt.subplot(224)
-        plt.imshow(pred_hm)
-        plt.show()
-
+            ori_img = deNormalizer(imgs[i])
+            plt.figure()
+            plt.subplot(221)
+            plt.imshow(ori_img)
+            plt.subplot(224)
+            plt.imshow(true_hm)
+            plt.subplot(222)
+            plt.title('%.3f'%iou[i],fontsize=10)
+            plt.imshow(pred_hm)
+            plt.show()
 
 
+            pred_hm = AddHeatmap(ori_img, pred_hm)
+            true_hm = AddHeatmap(ori_img, true_hm)
 
-
-
-
+            plt.figure()
+            plt.subplot(221)
+            plt.imshow(ori_img)
+            plt.subplot(224)
+            plt.imshow(true_hm)
+            plt.subplot(222)
+            plt.title('%.3f' % iou[i])
+            plt.imshow(pred_hm)
+            plt.show()
 
     return ious.mean()
 

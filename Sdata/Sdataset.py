@@ -21,6 +21,7 @@ class Sdata(data.Dataset):
     def __getitem__(self, item):
         img = cv2.cvtColor(cv2.imread(self.img_path[item]),  cv2.COLOR_BGR2RGB)  # [h,w,3]  RGB
         mask = cv2.imread(self.mask_path[item],cv2.IMREAD_GRAYSCALE)
+        mask[mask==2] = 1
 
         if self.transforms:
             img, mask = self.transforms(img, mask)
