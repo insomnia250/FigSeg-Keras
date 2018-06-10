@@ -5,7 +5,7 @@ from numpy import random
 import math
 from sklearn.utils import shuffle
 import matplotlib.pyplot as plt
-__all__ = ['Compose','ResizeImg',"Normalize","RandomResizedCrop","RandomHflip", 'ExpandBorder']
+__all__ = ['Compose','ResizeImg',"Normalize","RandomResizedCrop","RandomHflip", 'ExpandBorder','deNormalize']
 
 class Compose(object):
     def __init__(self, transforms):
