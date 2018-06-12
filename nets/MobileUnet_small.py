@@ -173,27 +173,27 @@ def MobileUNet(input_shape=None,
         else:
             img_input = input_tensor
 
-    b00 = _conv_block(img_input, 32, alpha, strides=(2, 2), block_id=0)
-    b01 = _depthwise_conv_block(b00, 64, alpha, depth_multiplier, block_id=1)
+    b00 = _conv_block(img_input, 24, alpha, strides=(2, 2), block_id=0)
+    b01 = _depthwise_conv_block(b00, 48, alpha, depth_multiplier, block_id=1)
 
-    b02 = _depthwise_conv_block(b01, 128, alpha, depth_multiplier, block_id=2, strides=(2, 2))
-    b03 = _depthwise_conv_block(b02, 128, alpha, depth_multiplier, block_id=3)
+    b02 = _depthwise_conv_block(b01, 96, alpha, depth_multiplier, block_id=2, strides=(2, 2))
+    b03 = _depthwise_conv_block(b02, 96, alpha, depth_multiplier, block_id=3)
 
-    b04 = _depthwise_conv_block(b03, 256, alpha, depth_multiplier, block_id=4, strides=(2, 2))
-    b05 = _depthwise_conv_block(b04, 256, alpha, depth_multiplier, block_id=5)
+    b04 = _depthwise_conv_block(b03, 192, alpha, depth_multiplier, block_id=4, strides=(2, 2))
+    b05 = _depthwise_conv_block(b04, 192, alpha, depth_multiplier, block_id=5)
 
-    b06 = _depthwise_conv_block(b05, 512, alpha, depth_multiplier, block_id=6, strides=(2, 2))
-    b07 = _depthwise_conv_block(b06, 512, alpha, depth_multiplier, block_id=7)
-    b08 = _depthwise_conv_block(b07, 512, alpha, depth_multiplier, block_id=8)
-    b09 = _depthwise_conv_block(b08, 512, alpha, depth_multiplier, block_id=9)
-    b10 = _depthwise_conv_block(b09, 512, alpha, depth_multiplier, block_id=10)
-    b11 = _depthwise_conv_block(b10, 512, alpha, depth_multiplier, block_id=11)
+    b06 = _depthwise_conv_block(b05, 384, alpha, depth_multiplier, block_id=6, strides=(2, 2))
+    b07 = _depthwise_conv_block(b06, 384, alpha, depth_multiplier, block_id=7)
+    b08 = _depthwise_conv_block(b07, 384, alpha, depth_multiplier, block_id=8)
+    b09 = _depthwise_conv_block(b08, 384, alpha, depth_multiplier, block_id=9)
+    b10 = _depthwise_conv_block(b09, 384, alpha, depth_multiplier, block_id=10)
+    b11 = _depthwise_conv_block(b10, 384, alpha, depth_multiplier, block_id=11)
 
-    b12 = _depthwise_conv_block(b11, 1024, alpha, depth_multiplier, block_id=12, strides=(2, 2))
-    b13 = _depthwise_conv_block(b12, 1024, alpha, depth_multiplier, block_id=13)
+    b12 = _depthwise_conv_block(b11, 768, alpha, depth_multiplier, block_id=12, strides=(2, 2))
+    b13 = _depthwise_conv_block(b12, 768, alpha, depth_multiplier, block_id=13)
     # b13 = Dropout(dropout)(b13)
 
-    filters = int(512 * alpha)
+    filters = int(384 * alpha)
     up1 = concatenate([
         Conv2DTranspose(filters, (2, 2), strides=(2, 2), padding='same',
                         kernel_regularizer=regu.l2(weight_decay),
@@ -202,7 +202,7 @@ def MobileUNet(input_shape=None,
     ], axis=3)
     b14 = _depthwise_conv_block(up1, filters, alpha_up, depth_multiplier, block_id=14)
 
-    filters = int(256 * alpha)
+    filters = int(192 * alpha)
     up2 = concatenate([
         Conv2DTranspose(filters, (2, 2), strides=(2, 2), padding='same',
                         kernel_regularizer=regu.l2(weight_decay),
@@ -211,7 +211,7 @@ def MobileUNet(input_shape=None,
     ], axis=3)
     b15 = _depthwise_conv_block(up2, filters, alpha_up, depth_multiplier, block_id=15)
 
-    filters = int(128 * alpha)
+    filters = int(96 * alpha)
     up3 = concatenate([
         Conv2DTranspose(filters, (2, 2), strides=(2, 2), padding='same',
                         kernel_regularizer=regu.l2(weight_decay),
@@ -220,7 +220,7 @@ def MobileUNet(input_shape=None,
     ], axis=3)
     b16 = _depthwise_conv_block(up3, filters, alpha_up, depth_multiplier, block_id=16)
 
-    filters = int(64 * alpha)
+    filters = int(48 * alpha)
     up4 = concatenate([
         Conv2DTranspose(filters, (2, 2), strides=(2, 2), padding='same',
                         kernel_regularizer=regu.l2(weight_decay),
@@ -229,7 +229,7 @@ def MobileUNet(input_shape=None,
     ], axis=3)
     b17 = _depthwise_conv_block(up4, filters, alpha_up, depth_multiplier, block_id=17)
 
-    filters = int(32 * alpha)
+    filters = int(24 * alpha)
     up5 = concatenate([b17, b00], axis=3)
     # b18 = _depthwise_conv_block(up5, filters, alpha_up, depth_multiplier, block_id=18)
     b18 = _conv_block(up5, filters, alpha_up, block_id=18)
@@ -264,11 +264,10 @@ if __name__=='__main__':
     import keras
     x = np.empty((10,224,224,3),dtype=np.float32)
     model = MobileUNet(input_shape=(448, 448, 3),
-                       alpha=0.15,
+                       alpha=1,
                        alpha_up=0.25)
-    model.save_weights('../artifacts/jian.h5')
     model.summary()
-
+    model.save_weights('../artifacts/mobile-small-temp.h5')
     # logits, y = model.predict(x)
     # print logits
     # print '=='*20

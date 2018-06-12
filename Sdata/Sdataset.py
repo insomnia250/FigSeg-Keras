@@ -6,6 +6,7 @@ import torch.utils.data as data
 import numpy as np
 import pandas as pd
 import cv2
+from matplotlib import pyplot as plt
 
 class Sdata(data.Dataset):
     def __init__(self, anno_pd, transforms):

@@ -6,21 +6,15 @@ import tensorflow as tf
 from matplotlib import gridspec
 import datetime
 import cv2
-from data import standardize
 from glob import glob
 import os
 from Sdata.Saug import *
-from sklearn.model_selection import train_test_split
-
 from keras.backend.tensorflow_backend import set_session
-from keras.layers import Input, GlobalAveragePooling2D, BatchNormalization, Dense, SeparableConv2D, Convolution2D, \
-    MaxPooling2D, AveragePooling2D, ZeroPadding2D, Dropout, Flatten, merge, Reshape, Activation
-
 from utils.preprocessing import get_train_val
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "2"
 config = tf.ConfigProto()
-config.gpu_options.per_process_gpu_memory_fraction = 0.2
+config.gpu_options.per_process_gpu_memory_fraction = 0.4
 set_session(tf.Session(config=config))
 
 prefix = ''
@@ -154,13 +148,13 @@ def main(pb_file, img_file):
     # with tf.gfile.FastGFile("seg.pb", mode='wb') as f:
     #     f.write(graph.SerializeToString())
 
-    img_root = '/media/gserver/data/seg_data/diy_data'
+    img_root = '/media/hszc/data1/seg_data/diy_seg'
     _, val_pd = get_train_val(img_root, test_size=1.0, random_state=42)
 
-    img_paths = val_pd['img_paths'].tolist()
+    img_paths = val_pd['image_paths'].tolist()
     mask_paths = val_pd['mask_paths'].tolist()
 
-    transform = valAug()
+    transform = valAug(size=(256,256))
     deNormalizer = deNormalize()
 
     import time
@@ -188,7 +182,7 @@ def main(pb_file, img_file):
                 x: img_batched
             })
             end_time = time.time()
-            print('time:', end_time - start_time)
+            print('time:', end_time - start_time)   # jian's : 224: 0.018  448:0.05
 
             img = cv2.resize(deNormalizer(img) ,dsize=(img_w,img_h))
             pred = cv2.resize(pred[0,:,:,0],dsize=(img_w,img_h))
@@ -202,7 +196,7 @@ if __name__ == '__main__':
     parser.add_argument(
         '--pb_file',
         type=str,
-        default='artifacts/MobileUnet9186.pb',
+        default='artifacts/Ms2.pb',
     )
     parser.add_argument(
         '--img_file',

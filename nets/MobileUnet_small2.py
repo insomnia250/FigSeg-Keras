@@ -173,7 +173,7 @@ def MobileUNet(input_shape=None,
         else:
             img_input = input_tensor
 
-    b00 = _conv_block(img_input, 32, alpha, strides=(2, 2), block_id=0)
+    b00 = _conv_block(img_input, 32, alpha, strides=(4, 4), block_id=0)
     b01 = _depthwise_conv_block(b00, 64, alpha, depth_multiplier, block_id=1)
 
     b02 = _depthwise_conv_block(b01, 128, alpha, depth_multiplier, block_id=2, strides=(2, 2))
@@ -237,7 +237,7 @@ def MobileUNet(input_shape=None,
     logits = Conv2D(1, (1, 1), kernel_initializer='he_normal', activation='linear',
                     kernel_regularizer=regu.l2(weight_decay),
                     bias_regularizer=regu.l2(weight_decay))(b18)
-    logits = BilinearUpSampling2D(size=(2, 2),name='logits')(logits)
+    logits = BilinearUpSampling2D(size=(4, 4),name='logits')(logits)
     proba = Activation('sigmoid', name='proba')(logits)
 
     model = Model(img_input, proba)
@@ -263,10 +263,10 @@ if __name__=='__main__':
     import numpy as np
     import keras
     x = np.empty((10,224,224,3),dtype=np.float32)
-    model = MobileUNet(input_shape=(448, 448, 3),
-                       alpha=0.15,
+    model = MobileUNet(input_shape=(256, 256, 3),
+                       alpha=1,
                        alpha_up=0.25)
-    model.save_weights('../artifacts/jian.h5')
+    model.save_weights('../artifacts/Ms2.h5')
     model.summary()
 
     # logits, y = model.predict(x)

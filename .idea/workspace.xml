@@ -2,17 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d38a0572-c33c-425d-bc06-82e7c536da77" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/h5_to_pb.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tf-pred.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/learning_rate.py" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/FigSeg-Keras.iml" afterPath="$PROJECT_DIR$/.idea/FigSeg-Keras.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Sdata/Saug.py" afterPath="$PROJECT_DIR$/Sdata/Saug.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/train_test.py" afterPath="$PROJECT_DIR$/train_test.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/preprocessing.py" afterPath="$PROJECT_DIR$/utils/preprocessing.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/nets/MobileUnet_small.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/nets/MobileUnet_small2.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/train_MobileUnet.py" />
+      <change beforePath="$PROJECT_DIR$/.idea/FigSeg-Keras.iml" afterPath="$PROJECT_DIR$/.idea/FigSeg-Keras.iml" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/Sdata/Saug.py" afterPath="$PROJECT_DIR$/Sdata/Saug.py" />
+      <change beforePath="$PROJECT_DIR$/Sdata/Sdataset.py" afterPath="$PROJECT_DIR$/Sdata/Sdataset.py" />
+      <change beforePath="$PROJECT_DIR$/eval_model.py" afterPath="$PROJECT_DIR$/eval_model.py" />
+      <change beforePath="$PROJECT_DIR$/h5_to_pb.py" afterPath="$PROJECT_DIR$/h5_to_pb.py" />
+      <change beforePath="$PROJECT_DIR$/nets/DeeplabV3.py" afterPath="$PROJECT_DIR$/nets/DeeplabV3.py" />
+      <change beforePath="$PROJECT_DIR$/nets/FigSeg.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/nets/MobileUnet.py" afterPath="$PROJECT_DIR$/nets/MobileUnet.py" />
+      <change beforePath="$PROJECT_DIR$/nets/TestModel.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/tf-pred.py" afterPath="$PROJECT_DIR$/tf-pred.py" />
+      <change beforePath="$PROJECT_DIR$/train_FigSeg.py" afterPath="$PROJECT_DIR$/train_MU_s2.py" />
+      <change beforePath="$PROJECT_DIR$/train_test.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/utils/preprocessing.py" afterPath="$PROJECT_DIR$/utils/preprocessing.py" />
+      <change beforePath="$PROJECT_DIR$/utils/train.py" afterPath="$PROJECT_DIR$/utils/train.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -23,29 +31,68 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/FigSeg_Keras$TestModel.coverage" NAME="TestModel Coverage Results" MODIFIED="1528026073107" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nets" />
-    <SUITE FILE_PATH="coverage/FigSeg_Keras$TestDataset.coverage" NAME="TestDataset Coverage Results" MODIFIED="1527749652406" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/dataset" />
-    <SUITE FILE_PATH="coverage/FigSeg_Keras$train_FigSeg.coverage" NAME="train_FigSeg Coverage Results" MODIFIED="1528345012727" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/FigSeg_Keras$eval_model.coverage" NAME="eval_model Coverage Results" MODIFIED="1528439945839" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/FigSeg_Keras$tf_pred.coverage" NAME="tf-pred Coverage Results" MODIFIED="1528599529716" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/FigSeg_Keras$FigSeg.coverage" NAME="FigSeg Coverage Results" MODIFIED="1528359187142" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nets" />
-    <SUITE FILE_PATH="coverage/FigSeg_Keras$predicting.coverage" NAME="predicting Coverage Results" MODIFIED="1528470080693" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
-    <SUITE FILE_PATH="coverage/FigSeg_Keras$preprocessing.coverage" NAME="preprocessing Coverage Results" MODIFIED="1528469944454" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
-    <SUITE FILE_PATH="coverage/FigSeg_Keras$Sdataset.coverage" NAME="Sdataset Coverage Results" MODIFIED="1528470446646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Sdata" />
-    <SUITE FILE_PATH="coverage/FigSeg_Keras$h5_to_pb.coverage" NAME="h5_to_pb Coverage Results" MODIFIED="1528594025794" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/FigSeg_Keras$MobileUNet.coverage" NAME="MobileUNet Coverage Results" MODIFIED="1527755802900" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nets" />
-    <SUITE FILE_PATH="coverage/FigSeg_Keras$train_test.coverage" NAME="train_test Coverage Results" MODIFIED="1528593895679" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/FigSeg_Keras$tf_pred.coverage" NAME="tf-pred Coverage Results" MODIFIED="1528803591370" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/FigSeg_Keras$MobileUnet_small2.coverage" NAME="MobileUnet_small2 Coverage Results" MODIFIED="1528803527665" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nets" />
     <SUITE FILE_PATH="coverage/FigSeg_Keras$train_deeplab.coverage" NAME="train_deeplab Coverage Results" MODIFIED="1528361156709" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/FigSeg_Keras$MobileUnet.coverage" NAME="MobileUnet Coverage Results" MODIFIED="1528359211387" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nets" />
-    <SUITE FILE_PATH="coverage/FigSeg_Keras$DeeplabV3.coverage" NAME="DeeplabV3 Coverage Results" MODIFIED="1528361056035" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nets" />
+    <SUITE FILE_PATH="coverage/FigSeg_Keras$predicting.coverage" NAME="predicting Coverage Results" MODIFIED="1528470080693" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
+    <SUITE FILE_PATH="coverage/FigSeg_Keras$train_MU_s2.coverage" NAME="train_MU_s2 Coverage Results" MODIFIED="1528804209926" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/FigSeg_Keras$preprocessing.coverage" NAME="preprocessing Coverage Results" MODIFIED="1528469944454" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
+    <SUITE FILE_PATH="coverage/FigSeg_Keras$train_FigSeg.coverage" NAME="train_FigSeg Coverage Results" MODIFIED="1528345012727" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/FigSeg_Keras$DeeplabV3.coverage" NAME="DeeplabV3 Coverage Results" MODIFIED="1528789570913" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nets" />
+    <SUITE FILE_PATH="coverage/FigSeg_Keras$Saug.coverage" NAME="Saug Coverage Results" MODIFIED="1528802665802" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Sdata" />
+    <SUITE FILE_PATH="coverage/FigSeg_Keras$h5_to_pb.coverage" NAME="h5_to_pb Coverage Results" MODIFIED="1528803544048" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/FigSeg_Keras$train_MobileUnet.coverage" NAME="train_MobileUnet Coverage Results" MODIFIED="1528804206350" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/FigSeg_Keras$Sdataset.coverage" NAME="Sdataset Coverage Results" MODIFIED="1528470446646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Sdata" />
+    <SUITE FILE_PATH="coverage/FigSeg_Keras$train_test.coverage" NAME="train_test Coverage Results" MODIFIED="1528683575575" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/FigSeg_Keras$TestDataset.coverage" NAME="TestDataset Coverage Results" MODIFIED="1527749652406" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/dataset" />
+    <SUITE FILE_PATH="coverage/FigSeg_Keras$MobileUnet_small.coverage" NAME="MobileUnet_small Coverage Results" MODIFIED="1528693379525" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nets" />
     <SUITE FILE_PATH="coverage/FigSeg_Keras$train_main.coverage" NAME="train_main Coverage Results" MODIFIED="1528099780439" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/FigSeg_Keras$eval_model.coverage" NAME="eval_model Coverage Results" MODIFIED="1528785662510" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/FigSeg_Keras$MobileUnet.coverage" NAME="MobileUnet Coverage Results" MODIFIED="1528693033536" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nets" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_TABLE_DETAILS" value="true" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <expand />
+    <select />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="train_MobileUnet.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/train_MobileUnet.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="80" column="25" lean-forward="true" selection-start-line="80" selection-start-column="25" selection-end-line="80" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="train_MU_s2.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/train_MU_s2.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="230">
+              <caret line="121" column="25" lean-forward="true" selection-start-line="121" selection-start-column="25" selection-end-line="121" selection-end-column="25" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="preprocessing.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/preprocessing.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="115">
-              <caret line="45" column="25" lean-forward="false" selection-start-line="45" selection-start-column="25" selection-end-line="45" selection-end-column="25" />
+            <state relative-caret-position="201">
+              <caret line="58" column="43" lean-forward="true" selection-start-line="58" selection-start-column="43" selection-end-line="58" selection-end-column="43" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
               </folding>
@@ -53,21 +100,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Saug.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Sdata/Saug.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="7" column="107" lean-forward="false" selection-start-line="7" selection-start-column="107" selection-end-line="7" selection-end-column="107" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="h5_to_pb.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/h5_to_pb.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="15" selection-end-column="38" />
+            <state relative-caret-position="220">
+              <caret line="72" column="48" lean-forward="false" selection-start-line="72" selection-start-column="48" selection-end-line="72" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -76,75 +113,21 @@
       <file leaf-file-name="tf-pred.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tf-pred.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="53" column="0" lean-forward="true" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#15#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
-              <caret line="113" column="4" lean-forward="true" selection-start-line="113" selection-start-column="4" selection-end-line="113" selection-end-column="4" />
+            <state relative-caret-position="225">
+              <caret line="161" column="41" lean-forward="false" selection-start-line="161" selection-start-column="41" selection-end-line="161" selection-end-column="41" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="train_test.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/train_test.py">
+      <file leaf-file-name="MobileUnet_small2.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/nets/MobileUnet_small2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="166">
-              <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="41" />
+            <state relative-caret-position="1892">
+              <caret line="160" column="4" lean-forward="false" selection-start-line="160" selection-start-column="4" selection-end-line="160" selection-end-column="4" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="eval_model.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/eval_model.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="65" column="0" lean-forward="false" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="115" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="plotting.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/utils/plotting.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="17" column="60" lean-forward="false" selection-start-line="17" selection-start-column="60" selection-end-line="17" selection-end-column="60" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="predicting.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/utils/predicting.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="17" column="40" lean-forward="false" selection-start-line="17" selection-start-column="40" selection-end-line="17" selection-end-column="40" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Sdataset.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Sdata/Sdataset.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="21" column="79" lean-forward="false" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="79" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -171,6 +154,9 @@
       <find>logits</find>
       <find>print</find>
       <find>mask_paths</find>
+      <find>rotate_bound</find>
+      <find>Br</find>
+      <find>Total params</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -192,22 +178,26 @@
         <option value="$PROJECT_DIR$/utils/metrics.py" />
         <option value="$PROJECT_DIR$/aaa.py" />
         <option value="$PROJECT_DIR$/train_main.py" />
-        <option value="$PROJECT_DIR$/utils/train.py" />
-        <option value="$PROJECT_DIR$/nets/FigSeg.py" />
-        <option value="$PROJECT_DIR$/train_FigSeg.py" />
-        <option value="$PROJECT_DIR$/nets/MobileUnet.py" />
-        <option value="$PROJECT_DIR$/nets/DeeplabV3.py" />
         <option value="$PROJECT_DIR$/train_deeplab.py" />
-        <option value="$PROJECT_DIR$/eval_model.py" />
         <option value="$PROJECT_DIR$/utils/plotting.py" />
         <option value="$PROJECT_DIR$/utils/predicting.py" />
-        <option value="$PROJECT_DIR$/Sdata/Sdataset.py" />
-        <option value="$PROJECT_DIR$/h5_to_pb.py" />
-        <option value="$PROJECT_DIR$/train_test.py" />
-        <option value="$PROJECT_DIR$/Sdata/Saug.py" />
-        <option value="$PROJECT_DIR$/tf-pred.py" />
-        <option value="$PROJECT_DIR$/utils/preprocessing.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/train_test.py" />
+        <option value="$PROJECT_DIR$/nets/MobileUnet.py" />
+        <option value="$PROJECT_DIR$/nets/MobileUnet_small.py" />
+        <option value="$PROJECT_DIR$/eval_model.py" />
+        <option value="$PROJECT_DIR$/nets/FigSeg.py" />
+        <option value="$PROJECT_DIR$/Sdata/Sdataset.py" />
+        <option value="$PROJECT_DIR$/utils/train.py" />
+        <option value="$PROJECT_DIR$/Sdata/Saug.py" />
+        <option value="$PROJECT_DIR$/nets/DeeplabV3.py" />
+        <option value="$PROJECT_DIR$/nets/MobileUnet_small2.py" />
+        <option value="$PROJECT_DIR$/h5_to_pb.py" />
+        <option value="$PROJECT_DIR$/tf-pred.py" />
+        <option value="$PROJECT_DIR$/train_MobileUnet.py" />
+        <option value="$PROJECT_DIR$/train_FigSeg.py" />
+        <option value="$PROJECT_DIR$/train_MU_s2.py" />
+        <option value="$PROJECT_DIR$/utils/preprocessing.py" />
       </list>
     </option>
   </component>
@@ -218,10 +208,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="237" />
-    <option name="y" value="183" />
-    <option name="width" value="1268" />
-    <option name="height" value="724" />
+    <option name="x" value="356" />
+    <option name="y" value="125" />
+    <option name="width" value="1377" />
+    <option name="height" value="868" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -238,6 +228,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -249,17 +241,16 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../unet_video_seg" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Landmarks" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/nets" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/utils" />
       <recent name="$PROJECT_DIR$/dataset" />
@@ -277,24 +268,25 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.tf-pred">
-    <configuration name="Sdataset" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.train_MU_s2">
+    <configuration name="MobileUnet_small2" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Sdata" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/nets" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="FigSeg-Keras" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Sdata/Sdataset.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/nets/MobileUnet_small2.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
     </configuration>
     <configuration name="eval_model" type="PythonConfigurationType" factoryName="Python">
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -313,6 +305,7 @@
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
     </configuration>
     <configuration name="h5_to_pb" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -331,24 +324,7 @@
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
-    </configuration>
-    <configuration name="predicting" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/utils" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="FigSeg-Keras" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/utils/predicting.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
     </configuration>
     <configuration name="tf-pred" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -367,8 +343,9 @@
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="train_test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="train_MU_s2" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -381,26 +358,46 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="FigSeg-Keras" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/train_test.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/train_MU_s2.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="train_MobileUnet" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="FigSeg-Keras" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/train_MobileUnet.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
     </configuration>
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Python.eval_model" />
-      <item index="1" class="java.lang.String" itemvalue="Python.Sdataset" />
-      <item index="2" class="java.lang.String" itemvalue="Python.predicting" />
-      <item index="3" class="java.lang.String" itemvalue="Python.train_test" />
-      <item index="4" class="java.lang.String" itemvalue="Python.h5_to_pb" />
-      <item index="5" class="java.lang.String" itemvalue="Python.tf-pred" />
+      <item index="1" class="java.lang.String" itemvalue="Python.MobileUnet_small2" />
+      <item index="2" class="java.lang.String" itemvalue="Python.h5_to_pb" />
+      <item index="3" class="java.lang.String" itemvalue="Python.tf-pred" />
+      <item index="4" class="java.lang.String" itemvalue="Python.train_MobileUnet" />
+      <item index="5" class="java.lang.String" itemvalue="Python.train_MU_s2" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.tf-pred" />
-        <item index="1" class="java.lang.String" itemvalue="Python.h5_to_pb" />
-        <item index="2" class="java.lang.String" itemvalue="Python.train_test" />
-        <item index="3" class="java.lang.String" itemvalue="Python.Sdataset" />
-        <item index="4" class="java.lang.String" itemvalue="Python.predicting" />
+        <item index="0" class="java.lang.String" itemvalue="Python.train_MU_s2" />
+        <item index="1" class="java.lang.String" itemvalue="Python.train_MobileUnet" />
+        <item index="2" class="java.lang.String" itemvalue="Python.tf-pred" />
+        <item index="3" class="java.lang.String" itemvalue="Python.h5_to_pb" />
+        <item index="4" class="java.lang.String" itemvalue="Python.MobileUnet_small2" />
       </list>
     </recent_temporary>
   </component>
@@ -421,30 +418,30 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="237" y="183" width="1268" height="724" extended-state="0" />
+    <frame x="356" y="125" width="1377" height="868" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22331691" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.5" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4302949" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39403972" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30943397" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32972628" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="SciView" active="false" anchor="right" auto_hide="true" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="false" weight="0.32922825" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="457" y="215" width="401" height="273" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39276138" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3291815" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="SciView" active="false" anchor="right" auto_hide="true" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="false" weight="0.32922825" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" x="457" y="215" width="401" height="273" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32890365" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -455,38 +452,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="2" />
+      <option name="time" value="3" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/anaconda2/lib/python2.7/site-packages/torch/utils/data/dataloader.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="416" column="0" lean-forward="false" selection-start-line="416" selection-start-column="0" selection-end-line="416" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/loss.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="59">
-          <caret line="30" column="4" lean-forward="false" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils/logs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#15#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/anaconda2/lib/python2.7/site-packages/keras/engine/training.py" />
-    <entry file="file://$USER_HOME$/anaconda2/lib/python2.7/site-packages/keras/backend/tensorflow_backend.py" />
-    <entry file="file://$USER_HOME$/anaconda2/lib/python2.7/site-packages/keras/losses.py" />
     <entry file="file://$USER_HOME$/anaconda2/lib/python2.7/site-packages/numpy/random/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -502,24 +472,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="25">
           <caret line="6" column="4" lean-forward="false" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FSdata/FSdataset.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="106">
-          <caret line="99" column="0" lean-forward="false" selection-start-line="99" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/learning_rate.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="4" lean-forward="false" selection-start-line="0" selection-start-column="4" selection-end-line="0" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/learning_rate.py" />
     <entry file="file://$USER_HOME$/anaconda2/lib/python2.7/site-packages/Keras-2.1.3-py2.7.egg/keras/callbacks.py" />
     <entry file="file://$USER_HOME$/anaconda2/lib/python2.7/site-packages/Keras-2.1.3-py2.7.egg/keras/engine/training.py" />
     <entry file="file://$USER_HOME$/anaconda2/lib/python2.7/site-packages/Keras-2.1.3-py2.7.egg/keras/backend/tensorflow_backend.py" />
@@ -530,32 +486,10 @@
     <entry file="file://$USER_HOME$/anaconda2/lib/python2.7/site-packages/Keras-2.1.3-py2.7.egg/keras/layers/normalization.py" />
     <entry file="file://$USER_HOME$/anaconda2/lib/python2.7/site-packages/Keras-2.1.3-py2.7.egg/keras/applications/resnet50.py" />
     <entry file="file://$USER_HOME$/anaconda2/lib/python2.7/site-packages/Keras-2.1.3-py2.7.egg/keras/layers/pooling.py" />
-    <entry file="file://$USER_HOME$/anaconda2/lib/python2.7/site-packages/Keras-2.1.3-py2.7.egg/keras/layers/merge.py" />
     <entry file="file://$PROJECT_DIR$/train_main.py" />
     <entry file="file://$PROJECT_DIR$/nets/MobileUNet.py" />
-    <entry file="file://$PROJECT_DIR$/nets/FigSeg.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="247" column="0" lean-forward="false" selection-start-line="247" selection-start-column="0" selection-end-line="256" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/anaconda2/lib/python2.7/site-packages/keras/engine/topology.py" />
     <entry file="file://$USER_HOME$/anaconda2/lib/python2.7/site-packages/keras/utils/data_utils.py" />
-    <entry file="file://$PROJECT_DIR$/nets/MobileUnet.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="240" column="55" lean-forward="true" selection-start-line="240" selection-start-column="4" selection-end-line="240" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/layers/BilinearUpSampling.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="79" column="8" lean-forward="false" selection-start-line="79" selection-start-column="8" selection-end-line="79" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/anaconda2/lib/python2.7/logging/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -571,96 +505,205 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/train.py">
+    <entry file="file://$USER_HOME$/anaconda2/lib/python2.7/site-packages/matplotlib/gridspec.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="27" column="74" lean-forward="false" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="74" />
+        <state relative-caret-position="-228">
+          <caret line="200" column="29" lean-forward="false" selection-start-line="200" selection-start-column="17" selection-end-line="200" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data.py" />
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="109" column="0" lean-forward="true" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/predicting.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="17" column="40" lean-forward="false" selection-start-line="17" selection-start-column="40" selection-end-line="17" selection-end-column="40" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nets/DeeplabV3.py" />
-    <entry file="file://$PROJECT_DIR$/train_deeplab.py" />
-    <entry file="file://$PROJECT_DIR$/train_FigSeg.py">
+    <entry file="file://$PROJECT_DIR$/utils/plotting.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="22" selection-end-column="30" />
+        <state relative-caret-position="285">
+          <caret line="17" column="60" lean-forward="false" selection-start-line="17" selection-start-column="60" selection-end-line="17" selection-end-column="60" />
+          <folding>
+            <element signature="e#0#18#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda2/lib/python2.7/site-packages/Keras-2.1.3-py2.7.egg/keras/layers/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-611">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#38#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/layers/BilinearUpSampling.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="776">
+          <caret line="79" column="8" lean-forward="false" selection-start-line="79" selection-start-column="8" selection-end-line="79" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train_deeplab.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-891">
+          <caret line="48" column="118" lean-forward="false" selection-start-line="48" selection-start-column="107" selection-end-line="48" selection-end-column="118" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nets/MobileUnet_small.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="111">
+          <caret line="265" column="49" lean-forward="false" selection-start-line="265" selection-start-column="49" selection-end-line="265" selection-end-column="49" />
           <folding>
             <element signature="e#0#9#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/plotting.py">
+    <entry file="file://$USER_HOME$/anaconda2/lib/python2.7/site-packages/Keras-2.1.3-py2.7.egg/keras/layers/merge.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="60" lean-forward="false" selection-start-line="17" selection-start-column="60" selection-end-line="17" selection-end-column="60" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="304">
+          <caret line="640" column="0" lean-forward="false" selection-start-line="640" selection-start-column="0" selection-end-line="640" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/anaconda2/lib/python2.7/site-packages/matplotlib/gridspec.py">
+    <entry file="file://$PROJECT_DIR$/nets/FigSeg.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-228">
-          <caret line="200" column="29" lean-forward="false" selection-start-line="200" selection-start-column="17" selection-end-line="200" selection-end-column="29" />
+        <state relative-caret-position="168">
+          <caret line="251" column="49" lean-forward="false" selection-start-line="251" selection-start-column="49" selection-end-line="251" selection-end-column="49" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/eval_model.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="65" column="0" lean-forward="false" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="115" />
+        <state relative-caret-position="134">
+          <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="53" selection-end-column="34" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Sdata/Sdataset.py">
+    <entry file="file://$PROJECT_DIR$/FSdata/FSaug.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="21" column="79" lean-forward="false" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="79" />
+        <state relative-caret-position="-38">
+          <caret line="118" column="0" lean-forward="false" selection-start-line="118" selection-start-column="0" selection-end-line="129" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#31#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharm2017.3/system/python_stubs/-688396619/cv2/cv2/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="6168" column="4" lean-forward="false" selection-start-line="6168" selection-start-column="4" selection-end-line="6168" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/predicting.py">
+    <entry file="file://$PROJECT_DIR$/utils/train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="17" column="40" lean-forward="false" selection-start-line="17" selection-start-column="40" selection-end-line="17" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Sdata/Saug.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="7" column="107" lean-forward="false" selection-start-line="7" selection-start-column="107" selection-end-line="7" selection-end-column="107" />
+        <state relative-caret-position="149">
+          <caret line="64" column="21" lean-forward="false" selection-start-line="64" selection-start-column="21" selection-end-line="64" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/anaconda2/lib/python2.7/site-packages/sklearn/model_selection/_split.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1488">
+        <state relative-caret-position="133">
           <caret line="1919" column="4" lean-forward="false" selection-start-line="1919" selection-start-column="4" selection-end-line="1919" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FSdata/FSdataset.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="871">
+          <caret line="99" column="0" lean-forward="false" selection-start-line="99" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Sdata/Sdataset.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="44" column="4" lean-forward="false" selection-start-line="44" selection-start-column="4" selection-end-line="44" selection-end-column="4" />
+          <folding>
+            <element signature="e#14#45#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Sdata/Saug.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="90" column="36" lean-forward="false" selection-start-line="90" selection-start-column="36" selection-end-line="90" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#31#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nets/MobileUnet.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="160" column="4" lean-forward="false" selection-start-line="160" selection-start-column="4" selection-end-line="160" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nets/DeeplabV3.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="17" column="31" lean-forward="true" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/h5_to_pb.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="15" selection-end-column="38" />
+        <state relative-caret-position="220">
+          <caret line="72" column="48" lean-forward="false" selection-start-line="72" selection-start-column="48" selection-end-line="72" selection-end-column="48" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/train_test.py">
+    <entry file="file://$PROJECT_DIR$/tf-pred.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="166">
-          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="41" />
+        <state relative-caret-position="225">
+          <caret line="161" column="41" lean-forward="false" selection-start-line="161" selection-start-column="41" selection-end-line="161" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda2/lib/python2.7/site-packages/Keras-2.1.3-py2.7.egg/keras/engine/topology.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-38">
+          <caret line="2712" column="64" lean-forward="false" selection-start-line="2712" selection-start-column="56" selection-end-line="2712" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nets/MobileUnet_small2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1892">
+          <caret line="160" column="4" lean-forward="false" selection-start-line="160" selection-start-column="4" selection-end-line="160" selection-end-column="4" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
@@ -669,37 +712,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/utils/preprocessing.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="45" column="25" lean-forward="false" selection-start-line="45" selection-start-column="25" selection-end-line="45" selection-end-column="25" />
+        <state relative-caret-position="201">
+          <caret line="58" column="43" lean-forward="true" selection-start-line="58" selection-start-column="43" selection-end-line="58" selection-end-column="43" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data.py">
+    <entry file="file://$PROJECT_DIR$/train_MobileUnet.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2219">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="135">
+          <caret line="80" column="25" lean-forward="true" selection-start-line="80" selection-start-column="25" selection-end-line="80" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tf-pred.py">
+    <entry file="file://$PROJECT_DIR$/train_MU_s2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="53" column="0" lean-forward="true" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+        <state relative-caret-position="230">
+          <caret line="121" column="25" lean-forward="true" selection-start-line="121" selection-start-column="25" selection-end-line="121" selection-end-column="25" />
           <folding>
-            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="113" column="4" lean-forward="true" selection-start-line="113" selection-start-column="4" selection-end-line="113" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>

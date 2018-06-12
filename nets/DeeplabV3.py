@@ -16,7 +16,7 @@ from keras.layers import Add
 from keras.layers import Dropout
 from keras.layers import BatchNormalization
 from keras.layers import Conv2D
-from keras.layers import DepthwiseConv2D
+from keras.applications.mobilenet import DepthwiseConv2D
 from keras.layers import ZeroPadding2D
 from keras.layers import AveragePooling2D
 from keras.engine import Layer

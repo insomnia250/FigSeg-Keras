@@ -5,6 +5,7 @@ from metrics import cal_IOU
 from logs import *
 from keras import backend as K
 def train(model,
+          para_model,
           epoch_num,
           start_epoch,
           lr_scheduler,
@@ -21,18 +22,26 @@ def train(model,
     step = start_epoch * len(data_set['train']) // data_loader['train'].batch_size
     for epoch in range(start_epoch, epoch_num):
         for batch_cnt, data in enumerate(data_loader['train']):
-            K.set_value(model.optimizer.lr, lr_scheduler(epoch))
+            if para_model is None:
+                K.set_value(model.optimizer.lr, lr_scheduler(epoch))
+            else:
+                K.set_value(para_model.optimizer.lr, lr_scheduler(epoch))
+
             if step % val_inter == 0:
                 logging.info('--' * 30)
-                logging.info('current lr:%s'%K.eval(model.optimizer.lr))
-                mIOU = predict(model, data_set['val'], data_loader['val'])
+                if para_model is None:
+                    logging.info('current lr:%s'%K.eval(model.optimizer.lr))
+                    mIOU = predict(model, data_set['val'], data_loader['val'])
+                else:
+                    logging.info('current lr:%s' % K.eval(para_model.optimizer.lr))
+                    mIOU = predict(para_model, data_set['val'], data_loader['val'])
 
                 if mIOU > best_mIOU:
                     best_mIOU = mIOU
                     best_weights = model.get_weights()
                 # save model
 
-                save_path = os.path.join(save_dir, 'weights-%d-[%.4f].h5' % (step, mIOU))
+                save_path = os.path.join(save_dir, 'weights-[%d-%d]-[%.4f].h5' % (epoch,step, mIOU))
                 model.save_weights(save_path)
                 logging.info('saved model to %s' % (save_path))
                 logging.info('--' * 30)
@@ -40,10 +49,12 @@ def train(model,
             # training
             inputs, masks = data
 
-            outputs = model.train_on_batch(inputs, masks)
+            if para_model is None:
+                outputs = model.train_on_batch(inputs, masks)
+            else:
+                outputs = para_model.train_on_batch(inputs, masks)
+
             loss, recall, prec,acc, proba = outputs
-
-
             bs_mIOU = cal_IOU(proba.round()[:,:,:,0], masks[:,:,:,0], 2)
 
             # batch loss
@@ -52,7 +63,6 @@ def train(model,
                              % (dt(), epoch, step, loss, recall, prec, acc, bs_mIOU.mean()))
 
             step += 1
-
 
     # save best model
     save_path = os.path.join(save_dir,'bestmodel-[%.4f].h5' % (best_mIOU))
