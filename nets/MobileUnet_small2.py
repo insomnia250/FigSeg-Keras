@@ -222,7 +222,7 @@ def MobileUNet(input_shape=None,
 
     filters = int(64 * alpha)
     up4 = concatenate([
-        Conv2DTranspose(filters, (2, 2), strides=(2, 2), padding='same',
+        Conv2DTranspose(filters, (2, 2), strides=(2,2), padding='same',
                         kernel_regularizer=regu.l2(weight_decay),
                         bias_regularizer=regu.l2(weight_decay))(b16),
         b01,
@@ -264,8 +264,8 @@ if __name__=='__main__':
     import keras
     x = np.empty((10,224,224,3),dtype=np.float32)
     model = MobileUNet(input_shape=(256, 256, 3),
-                       alpha=1,
-                       alpha_up=0.25)
+                          alpha=0.5,
+                          alpha_up=0.25)
     model.save_weights('../artifacts/Ms2.h5')
     model.summary()
 

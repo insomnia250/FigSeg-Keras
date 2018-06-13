@@ -33,6 +33,7 @@ class trainAug(object):
             ]),
             RandomBrightness(delta=30),
             ResizeImg(size=size),
+            RandomHflip(),
             Normalize(mean=None, std=None)
         ])
 
@@ -53,7 +54,7 @@ class valAug(object):
 train_root = '/media/hszc/data1/seg_data'
 val_root = '/media/hszc/data1/seg_data/diy_seg'
 img_shape = (256,256)
-save_dir = './saved_models/MUs2_256_aug/'
+save_dir = './saved_models/MUs2(4-2 0p5)_256/'
 bs = 16
 do_para = False
 resume = None
@@ -97,7 +98,7 @@ img_width = img_shape[1]
 
 
 model = MobileUNet_s2(input_shape=(img_height, img_width, 3),
-                   alpha=1,
+                   alpha=0.5,
                    alpha_up=0.25)
 
 model.summary(print_fn=logging.info)

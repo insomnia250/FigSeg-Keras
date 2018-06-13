@@ -25,7 +25,7 @@ from Sdata.Saug import *
 
 
 class trainAug(object):
-    def __init__(self, size=(256, 256)):
+    def __init__(self, size=(216, 216)):
         self.augment = Compose([
             RandomSelect([
                 RandomSmall(ratio=0.1),
@@ -34,6 +34,7 @@ class trainAug(object):
             ]),
             RandomBrightness(delta=30),
             ResizeImg(size=size),
+            RandomHflip(),
             Normalize(mean=None, std=None)
         ])
 
@@ -42,7 +43,7 @@ class trainAug(object):
 
 
 class valAug(object):
-    def __init__(self,size=(256,256)):
+    def __init__(self,size=(216,216)):
         self.augment = Compose([
             ResizeImg(size=size),
             Normalize(mean=None, std=None)
@@ -53,8 +54,8 @@ class valAug(object):
 
 train_root = '/media/hszc/data1/seg_data'
 val_root = '/media/hszc/data1/seg_data/diy_seg'
-img_shape = (256,256)
-save_dir = './saved_models/MU_0p5_256_aug/'
+img_shape = (216,216)
+save_dir = './saved_models/MUs(3-3-3 0p5)_216/'
 bs = 16
 do_para = False
 resume = None
@@ -95,9 +96,7 @@ img_width = img_shape[1]
 # x = np.random.rand(10,448,448,3)
 
 
-
-
-model = MobileUNet(input_shape=(img_height, img_width, 3),
+model = MobileUNet_s(input_shape=(216, 216, 3),
                    alpha=0.5,
                    alpha_up=0.25)
 

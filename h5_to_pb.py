@@ -22,7 +22,7 @@ from utils.preprocessing import *
 import logging
 from nets.DeeplabV3 import Deeplabv3
 from keras import losses
-# from nets.MobileUnet import MobileUNet
+from nets.MobileUnet import MobileUNet
 from nets.MobileUnet_small import MobileUNet as MobileUNet_s
 from nets.MobileUnet_small2 import MobileUNet as MobileUNet_s2
 from loss import dice_coef_loss, dice_coef, recall, precision
@@ -60,7 +60,6 @@ def freeze_session(session, keep_var_names=None, output_names=None, clear_device
 input_fld = 'artifacts/'
 weight_file = 'artifacts/Ms2.h5'
 output_graph_name = 'Ms2.pb'
-multi_gpu = 0
 
 output_fld = input_fld
 if not os.path.isdir(output_fld):
@@ -71,15 +70,11 @@ K.set_learning_phase(0)
 
 # prepare model
 model = MobileUNet_s2(input_shape=(256, 256, 3),
-                   alpha=1,
+                   alpha=0.5,
                    alpha_up=0.25)
 # model =  Deeplabv3(weights='pascal_voc', input_tensor=None, input_shape=(224, 224, 3), classes=1, backbone='mobilenetv2', OS=16, alpha=0.5)
-if multi_gpu:
-    parallel_model = multi_gpu_model(model,gpus=2)
-    parallel_model.load_weights(weight_file)
-    model.save_weights('artifacts/weights-[182-112000]-[0.8056].h5')
-else:
-    model.load_weights(weight_file)
+
+model.load_weights(weight_file)
 logging.info('resumed model from %s'%weight_file)
 
 model.summary()

@@ -297,15 +297,29 @@ class deNormalize(object):
         :param std:  RGB order
         mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]
         '''
-        self.mean = np.array(mean).reshape(1,1,3)
-        self.std = np.array(std).reshape(1,1,3)
+        if mean is not None:
+            self.mean = np.array(mean).reshape(1,1,3)
+        else:
+            self.mean = None
+
+        if std is not None:
+            self.std = np.array(std).reshape(1,1,3)
+        else:
+            self.std = None
     def __call__(self, img):
         '''
         :param image:  (H,W,3)  RGB
         :return:
         '''
-        # return (img/ 255. - self.mean) / self.std
-        return (255*(img*self.std + self.mean)).clip(0,255).astype(np.uint8)
+        if self.mean is None and self.std is None:
+            return  (img * 255.).clip(0,255).astype(np.uint8)
+        elif self.mean is not None and self.std is not None:
+            return (255*(img*self.std + self.mean)).clip(0,255).astype(np.uint8)
+        elif self.mean is None:
+            return ((img*self.std) * 255.).clip(0,255).astype(np.uint8)
+        else:
+
+            return (255*(img*self.std)).clip(0,255).astype(np.uint8)
 
 if __name__ == '__main__':
     from matplotlib import pyplot as plt

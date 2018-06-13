@@ -21,11 +21,10 @@ prefix = ''
 
 
 class valAug(object):
-    def __init__(self, size=(224, 224)):
+    def __init__(self,size=(256,256)):
         self.augment = Compose([
-            # ExpandBorder(mode='constant', value=255, size=size, resize=False),
             ResizeImg(size=size),
-            Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+            Normalize(mean=None, std=None)
         ])
 
     def __call__(self, *args):
@@ -155,7 +154,7 @@ def main(pb_file, img_file):
     mask_paths = val_pd['mask_paths'].tolist()
 
     transform = valAug(size=(256,256))
-    deNormalizer = deNormalize()
+    deNormalizer = deNormalize(mean=None, std=None)
 
     import time
     with tf.Session(graph=graph) as sess:
