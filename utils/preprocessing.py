@@ -31,12 +31,19 @@ class valAug(object):
         return self.augment(*args)
 
 
-def get_train_val(img_root, test_size=0.1, random_state=42):
+def get_train_val(img_root, test_size=0.1, random_state=42, dis=None):
     img_paths = sorted(list(glob.glob(os.path.join(img_root, "seg_img", "*.jpg"))))
     mask_paths = ['/'.join(p.split('/')[:-2]) + '/seg_mask/' + p.split('/')[-1].replace('.jpg', '.png') for p in
                   img_paths]
-    anno = pd.DataFrame({'image_paths':img_paths,
-                         'mask_paths':mask_paths})
+    if dis is None:
+        mask_teacher_paths = mask_paths
+    else:
+        mask_teacher_paths = ['/'.join(p.split('/')[:-2]) + '/%s/'%dis + p.split('/')[-1].replace('.jpg', '.npy') for p in
+                      img_paths]
+    anno = pd.DataFrame({'image_paths': img_paths,
+                         'mask_paths': mask_paths,
+                         'mask_teacher_paths':mask_teacher_paths,
+                         })
 
     if test_size == 1.0:
         return None, anno
@@ -52,16 +59,24 @@ def get_train_val(img_root, test_size=0.1, random_state=42):
 
 
 
-def gen_dataloader(train_pd, val_pd, trainAug, valAug, train_bs =8, val_bs=4):
+def gen_dataloader(train_pd, val_pd, trainAug, valAug, train_bs =8, val_bs=4,
+                   train_shuffle=True, val_shuffle=False, dis=None):
 
     data_set = {}
-    data_set['train'] = Sdata(train_pd, trainAug)
-    data_set['val'] = Sdata(val_pd, valAug)
-
     data_loader = {}
-    data_loader['train'] = torchdata.DataLoader(data_set['train'], train_bs, num_workers=4,
-                                                shuffle=True, pin_memory=True,collate_fn=collate_fn)
+
+    data_set['val'] = Sdata(val_pd, valAug)
     data_loader['val'] = torchdata.DataLoader(data_set['val'], val_bs, num_workers=4,
-                                              shuffle=False, pin_memory=True,collate_fn=collate_fn)
+                                              shuffle=val_shuffle, pin_memory=True, collate_fn=collate_fn)
+
+    if dis is None:
+        data_set['train'] = Sdata(train_pd, trainAug)
+        data_loader['train'] = torchdata.DataLoader(data_set['train'], train_bs, num_workers=4,
+                                                    shuffle=train_shuffle, pin_memory=True,collate_fn=collate_fn)
+
+    else:
+        data_set['train'] = Sdata(train_pd, trainAug, dis=True)
+        data_loader['train'] = torchdata.DataLoader(data_set['train'], train_bs, num_workers=4,
+                                                    shuffle=train_shuffle, pin_memory=True, collate_fn=collate_fn2)
 
     return data_set,data_loader

@@ -51,17 +51,6 @@ def rotate_nobound(image, angle,borderValue=0, borderMode=None):
 
     return rotated
 
-
-class Compose(object):
-    def __init__(self, transforms):
-        self.transforms = transforms
-
-    def __call__(self, *args):
-        for t in self.transforms:
-            args = t(*args)
-        return args
-
-
 def fixed_crop(src, x0, y0, w, h, size=None):
     out = src[y0:y0 + h, x0:x0 + w]
     if size is not None and (w, h) != size:
@@ -86,13 +75,25 @@ def center_crop(src, size):
     out = fixed_crop(src, x0, y0, new_w, new_h, size)
     return out
 
+
+class Compose(object):
+    def __init__(self, transforms):
+        self.transforms = transforms
+
+    def __call__(self, *args):
+        for t in self.transforms:
+            args = t(*args)
+            # print('  %s' % (t.__class__.__name__), len(args))
+        return args
+
+
 class RandomSelect(object):
     def __init__(self, transforms):
         self.transforms = transforms
-    def __call__(self, image, mask):
+    def __call__(self, image, mask, mask_teacher=None):
         idx = random.randint(len(self.transforms))
         # print('  %s %s' % (self.transforms[idx].__class__.__name__, self.transforms[idx].__dict__))
-        return self.transforms[idx](image, mask)
+        return self.transforms[idx](image, mask, mask_teacher)
 
 
 class ResizeImg(object):
@@ -100,9 +101,13 @@ class ResizeImg(object):
         self.size = size
         self.inter = inter
 
-    def __call__(self, image, mask):
+    def __call__(self, image, mask,mask_teacher=None):
+        if mask_teacher is not None:
+            mask_teacher = cv2.resize(mask_teacher, (self.size[1], self.size[0]), interpolation=self.inter)
+
         return cv2.resize(image, (self.size[1], self.size[0]), interpolation=self.inter), \
-               cv2.resize(mask, (self.size[1], self.size[0]), interpolation=self.inter)
+               cv2.resize(mask, (self.size[1], self.size[0]), interpolation=self.inter), \
+               mask_teacher
 
 class RandomResizedCrop(object):
     def __init__(self, size, scale=(0.25, 1.0), ratio=(3. / 4., 4. / 3.)):
@@ -110,7 +115,7 @@ class RandomResizedCrop(object):
         self.scale = scale
         self.ratio = ratio
 
-    def __call__(self,img, mask):
+    def __call__(self,img, mask, mask_teacher=None):
         h, w, _ = img.shape
         area = h * w
         for attempt in range(10):
@@ -127,62 +132,24 @@ class RandomResizedCrop(object):
                 y0 = random.randint(0, h - new_h)
                 out_img = fixed_crop(img, x0, y0, new_w, new_h, self.size)
                 out_mask = fixed_crop(mask, x0, y0, new_w, new_h, self.size)
-
-                return out_img, out_mask
+                if mask_teacher is not None:
+                    mask_teacher = fixed_crop(mask_teacher, x0, y0, new_w, new_h, self.size)
+                return out_img, out_mask, mask_teacher
         # Fallback
-        return center_crop(img, self.size), center_crop(mask, self.size)
+        if mask_teacher is not None:
+            mask_teacher = center_crop(mask_teacher,self.size)
+        return center_crop(img, self.size), center_crop(mask, self.size), mask_teacher
 
 
 class RandomHflip(object):
-    def __call__(self, image, mask):
+    def __call__(self, image, mask, mask_teacher=None):
         if random.randint(2):
-            return cv2.flip(image, 1), cv2.flip(mask, 1),
+            if mask_teacher is None:
+                return cv2.flip(image, 1), cv2.flip(mask, 1), None
+            else:
+                return cv2.flip(image, 1), cv2.flip(mask, 1), cv2.flip(mask_teacher, 1)
         else:
-            return image, mask
-
-
-class ExpandBorder(object):
-    def __init__(self, mode='constant', value=255, size=(336,336), resize=False):
-        self.mode = mode
-        self.value = value
-        self.resize = resize
-        self.size = size
-
-    def __call__(self, image, mask):
-
-        h, w, _ = image.shape
-        if h > w:
-            pad1 = (h-w)//2
-            pad2 = h - w - pad1
-            if self.mode == 'constant':
-                image = np.pad(image, ((0, 0), (pad1, pad2), (0, 0)),
-                               self.mode, constant_values=self.value)
-                mask = np.pad(mask, ((0, 0), (pad1, pad2)),
-                               self.mode, constant_values=0)
-            else:
-                image = np.pad(image,((0,0), (pad1, pad2),(0,0)), self.mode)
-                mask = np.pad(mask, ((0, 0), (pad1, pad2)),
-                               self.mode, constant_values=0)
-        elif h < w:
-            pad1 = (w-h)//2
-            pad2 = w-h - pad1
-            if self.mode == 'constant':
-                image = np.pad(image, ((pad1, pad2),(0, 0), (0, 0)),
-                               self.mode,constant_values=self.value)
-                mask = np.pad(mask, ((pad1, pad2),(0, 0)),
-                               self.mode,constant_values=self.value)
-            else:
-                image = np.pad(image, ((pad1, pad2), (0, 0), (0, 0)),self.mode)
-                mask = np.pad(mask, ((pad1, pad2),(0, 0)),
-                               self.mode,constant_values=self.value)
-
-        if self.resize:
-            image = cv2.resize(image, (self.size[0], self.size[0]),interpolation=cv2.INTER_LINEAR)
-            mask = cv2.resize(mask, (self.size[0], self.size[0]), interpolation=cv2.INTER_LINEAR)
-
-        return image, mask
-
-
+            return image, mask, mask_teacher
 
 class RandomRotate(object):
     def __init__(self, angles, bound, borderMode='REFLECT', borderValue=None):
@@ -194,7 +161,7 @@ class RandomRotate(object):
             self.borderMode = borderMode
         self.borderValue = borderValue
 
-    def __call__(self,img, mask):
+    def __call__(self,img, mask, mask_teacher=None):
         angle = np.random.uniform(self.angles[0], self.angles[1])
         if isinstance(self.bound, str) and self.bound.lower() == 'random':
             bound = random.randint(2)
@@ -204,10 +171,14 @@ class RandomRotate(object):
         if bound:
             img = rotate_bound(img, angle, borderMode=self.borderMode, borderValue=self.borderValue)
             mask = rotate_bound(mask, angle, borderValue=0)
+            if mask_teacher is not None:
+                mask_teacher = rotate_bound(mask_teacher, angle,borderMode=cv2.BORDER_REFLECT)
         else:
             img = rotate_nobound(img, angle, borderMode=self.borderMode, borderValue=self.borderValue)
             mask = rotate_nobound(mask, angle,borderValue=0)
-        return img, mask
+            if mask_teacher is not None:
+                mask_teacher = rotate_nobound(mask_teacher, angle,borderMode=cv2.BORDER_REFLECT)
+        return img, mask, mask_teacher
 
 
 class RandomBrightness(object):
@@ -216,21 +187,21 @@ class RandomBrightness(object):
         assert delta <= 255
         self.delta = delta
 
-    def __call__(self, image, mask):
+    def __call__(self, image, mask , mask_teacher=None):
         delta = random.uniform(-self.delta, self.delta)
         image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV).astype(np.float32)
         image[:,:,2] += delta
         image = image.clip(0, 255).astype(np.uint8)
         image = cv2.cvtColor(image, cv2.COLOR_HSV2BGR)
 
-        return image, mask
+        return image, mask,mask_teacher
 
 
 class RandomSmall(object):
     def __init__(self, ratio=0.1):
         self.ratio = ratio
 
-    def __call__(self, image, mask):
+    def __call__(self, image, mask,mask_teacher=None):
         h,w = image.shape[0:2]
 
         ratio = random.uniform(0, self.ratio)
@@ -253,7 +224,9 @@ class RandomSmall(object):
         M = cv2.getPerspectiveTransform(pts1, pts2)
         image = cv2.warpPerspective(image, M, (w,h), borderMode=cv2.BORDER_REFLECT)
         mask = cv2.warpPerspective(mask, M, (w, h), borderMode=cv2.BORDER_CONSTANT, borderValue=0)
-        return image, mask
+        if mask_teacher is not None:
+            mask_teacher = cv2.warpPerspective(mask_teacher, M, (w, h), borderMode=cv2.BORDER_REFLECT)
+        return image, mask, mask_teacher
 
 
 
@@ -273,21 +246,19 @@ class Normalize(object):
             self.std = np.array(std).reshape(1,1,3)
         else:
             self.std = None
-    def __call__(self, img, mask):
+    def __call__(self, img, mask,mask_teacher=None):
         '''
         :param image:  (H,W,3)  RGB
         :return:
         '''
         if self.mean is None and self.std is None:
-            return  img / 255., mask
+            return  img / 255., mask, mask_teacher
         elif self.mean is not None and self.std is not None:
-            return  (img / 255. - self.mean) / self.std, mask
+            return  (img / 255. - self.mean) / self.std, mask, mask_teacher
         elif self.mean is None:
-            return img / 255. / self.std, mask
+            return img / 255. / self.std, mask, mask_teacher
         else:
-            return (img / 255. - self.mean) , mask
-
-
+            return (img / 255. - self.mean) , mask, mask_teacher
 
 
 class deNormalize(object):
@@ -318,7 +289,6 @@ class deNormalize(object):
         elif self.mean is None:
             return ((img*self.std) * 255.).clip(0,255).astype(np.uint8)
         else:
-
             return (255*(img*self.std)).clip(0,255).astype(np.uint8)
 
 if __name__ == '__main__':
@@ -341,28 +311,36 @@ if __name__ == '__main__':
                 RandomBrightness(delta=30),
                 # ExpandBorder(value=0),
                 ResizeImg(size=size),
-                Normalize(mean=None, std=None)
+                # Normalize(mean=None, std=None)
             ])
 
         def __call__(self, *args):
             return self.augment(*args)
 
     # prepare data
-    eval_data_root = '/media/hszc/data1/seg_data/diy_seg'
+    eval_data_root = '/media/hszc/data1/seg_data/'
     img_paths = sorted(glob(os.path.join(eval_data_root, 'seg_img/*.jpg')))
     mask_paths = ['/'.join(x.split('/')[:-2]) + '/seg_mask/' + x.split('/')[-1].replace('.jpg', '.png') for x in
                   img_paths]
-    anno = pd.DataFrame({'image_paths': img_paths, 'mask_paths': mask_paths})
+    mask_teacher_paths = ['/'.join(x.split('/')[:-2]) + '/pred_mask(T20)/' + x.split('/')[-1].replace('.jpg', '.npy') for x in
+                  img_paths]
+
+    anno = pd.DataFrame({'image_paths': img_paths,
+                         'mask_paths': mask_paths,
+                         'mask_teacher_paths': mask_teacher_paths,
+                         })
     print anno.info()
     data_set = {}
-    data_set['val'] = Sdata(anno_pd=anno, transforms=valAug(size=(448, 448)))
-
-    img, mask = data_set['val'][114]
+    # data_set['val'] = Sdata(anno_pd=anno, transforms=valAug(size=(448, 448)))
+    data_set['val'] = Sdata(anno_pd=anno, transforms=valAug(size=(256, 256)),dis=True)
+    img, mask, mask_teacher = data_set['val'][1234]
     img = img.astype(np.uint8)
     print img.shape, mask.shape, img.mean()
 
-    plt.subplot(121)
+    plt.subplot(131)
     plt.imshow(img)
-    plt.subplot(122)
+    plt.subplot(132)
     plt.imshow(mask[:,:,0])
+    plt.subplot(133)
+    plt.imshow(mask_teacher[:, :, 0])
     plt.show()

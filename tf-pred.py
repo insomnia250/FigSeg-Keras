@@ -195,7 +195,7 @@ if __name__ == '__main__':
     parser.add_argument(
         '--pb_file',
         type=str,
-        default='artifacts/Ms2.pb',
+        default='artifacts/Ms22.pb',
     )
     parser.add_argument(
         '--img_file',

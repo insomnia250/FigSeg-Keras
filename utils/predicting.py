@@ -32,13 +32,38 @@ def predict(
     return ious.mean()
 
 
+def predict_dis(
+        model,
+        data_set,
+        data_loader,
+        verbose=False
+):
+
+    ious = np.zeros(len(data_set), dtype=float)
+
+    idx = 0
+    for batch_cnt_val, data_val in enumerate(data_loader):
+        if verbose:
+            print('%d / %d' % (batch_cnt_val, len(data_set)//data_loader.batch_size))
+        imgs, masks = data_val
+        # forward
+        _, proba = model.predict_on_batch(imgs)
+        # statistics
+        iou = cal_IOU(proba.round()[:,:,:,0], masks[:,:,:,0], 2)
+        ious[idx: idx + imgs.shape[0]] = iou
+        idx += imgs.shape[0]
+
+    return ious.mean()
+
+
+
 def predict_vis(
         model,
         data_set,
         data_loader,
         verbose=False
 ):
-    deNormalizer = deNormalize()
+    deNormalizer = deNormalize(mean=None,std=None)
     ious = np.zeros(len(data_set), dtype=float)
 
     idx = 0
@@ -87,4 +112,31 @@ def predict_vis(
             plt.show()
 
     return ious.mean()
+
+
+def predict_save(
+        model,
+        data_set,
+        data_loader,
+        save_paths,
+        verbose=False,
+        visual=False
+):
+
+    idx = 0
+    for batch_cnt_val, data_val in enumerate(data_loader):
+        if verbose:
+            print('%d / %d' % (batch_cnt_val, len(data_set)//data_loader.batch_size))
+        imgs, masks = data_val
+        # forward
+        proba = model.predict_on_batch(imgs)
+        for pred_mask in proba[:,:,:,0]:
+            save_path = save_paths[idx]
+            if visual:
+                print('shape:', pred_mask.shape)
+                print('to be saved: %s'%save_path)
+                plt.imshow(pred_mask)
+                plt.show()
+            np.save(save_path,pred_mask)
+            idx += 1
 

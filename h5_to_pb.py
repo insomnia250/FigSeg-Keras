@@ -25,6 +25,7 @@ from keras import losses
 from nets.MobileUnet import MobileUNet
 from nets.MobileUnet_small import MobileUNet as MobileUNet_s
 from nets.MobileUnet_small2 import MobileUNet as MobileUNet_s2
+from nets_dis.MobileUnet_small2_dis import MobileUNet as MobileUNet_s2_dis
 from loss import dice_coef_loss, dice_coef, recall, precision
 
 def freeze_session(session, keep_var_names=None, output_names=None, clear_devices=True):
@@ -58,7 +59,7 @@ def freeze_session(session, keep_var_names=None, output_names=None, clear_device
 
 
 input_fld = 'artifacts/'
-weight_file = 'artifacts/Ms2.h5'
+weight_file = './saved_models/MUs2(4-2 0p5)_256-dis/weights-[0-0]-[0.4314].h5'
 output_graph_name = 'Ms2.pb'
 
 output_fld = input_fld
@@ -69,7 +70,7 @@ weight_file_path = weight_file
 K.set_learning_phase(0)
 
 # prepare model
-model = MobileUNet_s2(input_shape=(256, 256, 3),
+model = MobileUNet_s2_dis(input_shape=(256, 256, 3),
                    alpha=0.5,
                    alpha_up=0.25)
 # model =  Deeplabv3(weights='pascal_voc', input_tensor=None, input_shape=(224, 224, 3), classes=1, backbone='mobilenetv2', OS=16, alpha=0.5)
