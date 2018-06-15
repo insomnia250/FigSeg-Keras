@@ -54,10 +54,10 @@ class valAug(object):
 train_root = '/media/hszc/data1/seg_data'
 val_root = '/media/hszc/data1/seg_data/diy_seg'
 img_shape = (256,256)
-save_dir = './saved_models/MUs2(4-2 0p5)_256-test/'
-bs = 4
+save_dir = './saved_models/MUs2(4-2 0p5)_256/'
+bs = 2
 do_para = False
-resume = './saved_models/MUs2(4-2 0p5)_256/weights-[171-234500]-[0.8845].h5'
+resume = './saved_models/MUs2(4-2 0p5)_256/weights-[167-458500]-[0.8961].h5'
 
 
 
